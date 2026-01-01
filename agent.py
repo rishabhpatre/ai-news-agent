@@ -109,6 +109,12 @@ class AINewsAgent:
         print("  • RSS feeds...")
         rss_news = self.rss_source.fetch(days_back=days_back)
         print(f"    Found {len(rss_news)} articles")
+
+        # 3b. Hugging Face (Isolated)
+        print("  • Hugging Face feeds...")
+        hf_source = RSSSource(settings.hf_feeds)
+        hf_news = hf_source.fetch(days_back=days_back)
+        print(f"    Found {len(hf_news)} articles")
         
         # 4. Reddit (Via RSS)
         reddit_posts = []
@@ -168,6 +174,7 @@ class AINewsAgent:
             'videos': videos,
             'tools': tools,
             'discussions': discussions,
+            'hf_news': hf_news
         }
     
     def process_content(self, content: dict) -> dict:
@@ -223,6 +230,12 @@ class AINewsAgent:
         discussions = self.deduplicator.deduplicate_all(content['discussions'])
         discussions = discussions[:settings.max_discussions]
         print(f"    {len(content['discussions'])} → {len(discussions)}")
+
+        # Deduplicate Hugging Face
+        print("  • Deduplicating Hugging Face...")
+        hf_news = self.deduplicator.deduplicate_all(content['hf_news'])
+        hf_news = hf_news[:settings.max_news]
+        print(f"    {len(content['hf_news'])} → {len(hf_news)}")
         
         # Generate summaries if LLM is available
         if self.summarizer.has_llm:
@@ -230,6 +243,7 @@ class AINewsAgent:
             papers = self.summarizer.summarize_batch(papers)
             news_api = self.summarizer.summarize_batch(news_api)
             rss_news = self.summarizer.summarize_batch(rss_news)
+            hf_news = self.summarizer.summarize_batch(hf_news)
             # We can summarize reddit too if needed, but titles are usually descriptive
         
         return {
@@ -240,6 +254,7 @@ class AINewsAgent:
             'videos': videos,
             'tools': tools,
             'discussions': discussions,
+            'hf_news': hf_news,
         }
     
     def send_digest(self, content: dict, dry_run: bool = False) -> bool:
@@ -265,6 +280,7 @@ class AINewsAgent:
             papers=content['papers'],
             news_api=content['news_api'],
             rss_news=content['rss_news'],
+            hf_news=content['hf_news'], # Added hf_news
             reddit_posts=content['reddit_posts'],
             videos=content['videos'],
             tools=content['tools'],

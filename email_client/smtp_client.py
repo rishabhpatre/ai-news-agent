@@ -77,6 +77,7 @@ class SMTPClient:
         videos: List[Article],
         tools: List[Article],
         discussions: List[Article],
+        hf_news: List[Article],
         dry_run: bool = False,
     ) -> bool:
         """
@@ -105,6 +106,7 @@ class SMTPClient:
             videos=videos,
             tools=tools,
             discussions=discussions,
+            hf_news=hf_news,
         )
         
         # Handle multiple recipients
@@ -124,7 +126,7 @@ class SMTPClient:
         message['To'] = to_header
         
         # Plain text fallback
-        plain_text = self._create_plain_text(papers, news_api, rss_news, reddit_posts, videos, tools, discussions)
+        plain_text = self._create_plain_text(papers, news_api, rss_news, reddit_posts, videos, tools, discussions, hf_news)
         message.attach(MIMEText(plain_text, 'plain'))
         
         # HTML content
@@ -159,7 +161,6 @@ class SMTPClient:
         except Exception as e:
             print(f"❌ Failed to send email: {e}")
             return False
-    
     def _render_template(
         self,
         papers: List[Article],
@@ -169,16 +170,18 @@ class SMTPClient:
         videos: List[Article],
         tools: List[Article],
         discussions: List[Article],
+        hf_news: List[Article],
     ) -> str:
         """Render the HTML email template."""
         try:
-            total_count = len(papers) + len(news_api) + len(rss_news) + len(reddit_posts) + len(videos) + len(tools) + len(discussions)
+            total_count = len(papers) + len(news_api) + len(rss_news) + len(reddit_posts) + len(videos) + len(tools) + len(discussions) + len(hf_news)
             template = self._jinja_env.get_template('digest.html')
             return template.render(
                 date=datetime.now().strftime('%B %d, %Y'),
                 papers=papers,
                 news_api=news_api,
                 rss_news=rss_news,
+                hf_news=hf_news,
                 reddit_posts=reddit_posts,
                 videos=videos,
                 tools=tools,
@@ -187,7 +190,7 @@ class SMTPClient:
             )
         except Exception as e:
             print(f"Template rendering failed: {e}")
-            return self._create_basic_html(papers, news_api, rss_news, discussions) # Fallback doesn't need all sources
+            return "<h1>Error rendering template</h1><p>But we have results!</p>" 
     
     def _create_basic_html(
         self,
@@ -230,7 +233,6 @@ class SMTPClient:
         
         html += "</body></html>"
         return html
-    
     def _create_plain_text(
         self,
         papers: List[Article],
@@ -240,6 +242,7 @@ class SMTPClient:
         videos: List[Article],
         tools: List[Article],
         discussions: List[Article],
+        hf_news: List[Article],
     ) -> str:
         """Create plain text version of the digest."""
         lines = [
@@ -278,6 +281,14 @@ class SMTPClient:
             for r in reddit_posts[:5]:
                 lines.append(f"• {r.title} ({r.source})")
                 lines.append(f"  {r.url}")
+                lines.append("")
+
+        if hf_news:
+            lines.append("🤗 HUGGING FACE HUB")
+            lines.append("-" * 30)
+            for h in hf_news[:5]:
+                lines.append(f"• {h.title}")
+                lines.append(f"  {h.url}")
                 lines.append("")
         
         if videos:

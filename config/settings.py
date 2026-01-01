@@ -77,7 +77,14 @@ class Settings:
     # YouTube Feeds (Channels)
     youtube_feeds: List[dict] = field(default_factory=lambda: [
         {'name': 'Two Minute Papers', 'url': 'https://www.youtube.com/feeds/videos.xml?channel_id=UCbfYPyITQ-7l4upoX8nvctg'},
-        {'name': 'AI Explained', 'url': 'https://www.youtube.com/feeds/videos.xml?channel_id=UCcnJ8uNYChtmbCtleKrQKAL'},
+        {'name': 'AI Explained', 'url': 'https://www.youtube.com/feeds/videos.xml?channel_id=UCp_9GybIeJV5CDJ7LlJkFvA'},
+        {'name': 'Yannic Kilcher', 'url': 'https://www.youtube.com/feeds/videos.xml?channel_id=UCHmD-oSpV0sNfAUnpYpj8KA'},
+        {'name': 'DeepMind', 'url': 'https://www.youtube.com/feeds/videos.xml?channel_id=UCP7jMXSY2xbc3KCAE0MHQ-A'},
+        {'name': 'Andrej Karpathy', 'url': 'https://www.youtube.com/feeds/videos.xml?channel_id=UCYO_jab_esuFRV4b17AJtAw'},
+        {'name': 'LangChain', 'url': 'https://www.youtube.com/feeds/videos.xml?channel_id=UCC-lyoTfSrcJzA1ab3APAgw'},
+        {'name': 'AssemblyAI', 'url': 'https://www.youtube.com/feeds/videos.xml?channel_id=UCtatfZMf-8EkIwASXM4ts0A'},
+        {'name': 'Lex Fridman', 'url': 'https://www.youtube.com/feeds/videos.xml?channel_id=UCSHZKyawb77ixDdsGog4iWA'},
+        {'name': 'Stanford Online', 'url': 'https://www.youtube.com/feeds/videos.xml?channel_id=UCBa5G_ESCn8Yd4vw5U-gIcg'},
     ])
     
     # Product Hunt
@@ -103,12 +110,17 @@ class Settings:
         {'name': 'r/learnmachinelearning', 'url': 'https://www.reddit.com/r/learnmachinelearning/.rss'},
     ])
     
+    # Hugging Face Feeds (Isolated)
+    hf_feeds: List[dict] = field(default_factory=lambda: [
+        {'name': 'Hugging Face Blog', 'url': 'https://huggingface.co/blog/feed.xml'},
+        {'name': 'HF Trending Models', 'url': 'https://zernel.github.io/huggingface-trending-feed/feed.xml'},
+    ])
+
     # RSS Feeds to monitor
     rss_feeds: List[dict] = field(default_factory=lambda: [
         {'name': 'MIT Tech Review AI', 'url': 'https://www.technologyreview.com/topic/artificial-intelligence/feed'},
         {'name': 'OpenAI Blog', 'url': 'https://openai.com/blog/rss.xml'},
         {'name': 'Anthropic Research', 'url': 'https://raw.githubusercontent.com/Olshansk/rss-feeds/main/feeds/feed_anthropic_research.xml'},
-        {'name': 'Hugging Face Blog', 'url': 'https://huggingface.co/blog/feed.xml'},
         {'name': 'Google DeepMind', 'url': 'https://deepmind.com/blog/feed/basic/'},
         {'name': 'NVIDIA Developer', 'url': 'https://developer.nvidia.com/blog/feed/'},
         {'name': 'AWS Machine Learning', 'url': 'http://feeds.feedburner.com/amazon/AWSAI'},
@@ -118,7 +130,6 @@ class Settings:
         {'name': 'TechCrunch AI', 'url': 'https://techcrunch.com/category/artificial-intelligence/feed/'},
         {'name': 'BBC News', 'url': 'https://feeds.bbci.co.uk/news/rss.xml'},
         {'name': 'GitHub Blog', 'url': 'https://github.blog/feed'},
-        {'name': 'HF Trending', 'url': 'https://zernel.github.io/huggingface-trending-feed/feed.xml'},
     ])
     
     @property
