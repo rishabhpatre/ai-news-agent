@@ -10,50 +10,55 @@ from sources.arxiv_source import Article
 class Summarizer:
     """Generates summaries for articles using LLM or extractive methods."""
     
-    def __init__(
-        self,
-        openai_api_key: Optional[str] = None,
-        gemini_api_key: Optional[str] = None,
-        max_summary_length: int = 150,
-    ):
+    def __init__(self, openai_api_key: str = "", gemini_api_key: str = "", groq_api_key: str = "", max_summary_length: int = 400):
         """
-        Initialize summarizer.
+        Initialize the summarizer with API keys.
         
         Args:
-            openai_api_key: OpenAI API key for GPT summarization.
-            gemini_api_key: Google Gemini API key for summarization.
-            max_summary_length: Maximum characters for summaries.
+            openai_api_key: OpenAI API key.
+            gemini_api_key: Gemini API key.
+            groq_api_key: Groq API key.
+            max_summary_length: Maximum length of generated summary.
         """
-        self.openai_api_key = openai_api_key
-        self.gemini_api_key = gemini_api_key
         self.max_summary_length = max_summary_length
-        
-        # Initialize LLM clients
         self._openai_client = None
         self._gemini_model = None
+        self._groq_client = None
         
-        if openai_api_key:
+        # Initialize Groq (OpenAI-compatible)
+        if groq_api_key:
+            try:
+                from openai import OpenAI
+                self._groq_client = OpenAI(
+                    base_url="https://api.groq.com/openai/v1",
+                    api_key=groq_api_key
+                )
+            except ImportError:
+                print("OpenAI library not installed (needed for Groq)")
+
+        # Initialize OpenAI
+        if openai_api_key and not self._groq_client:
             try:
                 from openai import OpenAI
                 self._openai_client = OpenAI(api_key=openai_api_key)
-                # Test if key format looks valid (starts with sk-)
                 if not openai_api_key.startswith('sk-'):
                     self._openai_client = None
             except ImportError:
                 print("OpenAI library not installed")
         
-        if gemini_api_key and not self._openai_client:
+        # Initialize Gemini
+        if gemini_api_key and not self._openai_client and not self._groq_client:
             try:
                 import google.generativeai as genai
                 genai.configure(api_key=gemini_api_key)
-                self._gemini_model = genai.GenerativeModel('gemini-1.5-flash')
+                self._gemini_model = genai.GenerativeModel('gemini-flash-lite-latest')
             except ImportError:
                 print("Google Generative AI library not installed")
     
     @property
     def has_llm(self) -> bool:
         """Check if an LLM is available for summarization."""
-        return self._openai_client is not None or self._gemini_model is not None
+        return self._openai_client is not None or self._gemini_model is not None or self._groq_client is not None
     
     def summarize(self, article: Article) -> str:
         """
@@ -67,15 +72,11 @@ class Summarizer:
         Returns:
             Generated summary string.
         """
-        # If article already has a short summary, use it
-        if article.summary and len(article.summary) <= self.max_summary_length:
-            return article.summary
-        
         # Try LLM summarization
         if self.has_llm:
             try:
                 import time
-                time.sleep(1) # Simple rate limiting for free tier
+                time.sleep(0.5) # Reduced sleep for better providers
                 return self._summarize_with_llm(article)
             except Exception as e:
                 print(f"LLM summarization failed: {e}")
@@ -89,7 +90,7 @@ class Summarizer:
         
         Args:
             articles: List of Article objects.
-            max_batch: Maximum number to process (to limit API costs and rate limits).
+            max_batch: Maximum number to process.
             
         Returns:
             Articles with updated summaries.
@@ -111,6 +112,15 @@ Content: {article.summary[:1500]}
 
 Summary:"""
         
+        if self._groq_client:
+            response = self._groq_client.chat.completions.create(
+                model="llama-3.3-70b-versatile",
+                messages=[{"role": "user", "content": prompt}],
+                max_tokens=300,
+                temperature=0.3,
+            )
+            return response.choices[0].message.content.strip()[:self.max_summary_length]
+
         if self._openai_client:
             response = self._openai_client.chat.completions.create(
                 model="gpt-4o-mini",

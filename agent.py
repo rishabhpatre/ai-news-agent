@@ -62,6 +62,7 @@ class AINewsAgent:
         self.summarizer = Summarizer(
             openai_api_key=settings.openai_api_key,
             gemini_api_key=settings.gemini_api_key,
+            groq_api_key=settings.groq_api_key,
         )
         
         # Initialize email client

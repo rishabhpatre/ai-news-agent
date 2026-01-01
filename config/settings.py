@@ -28,6 +28,7 @@ class Settings:
     # LLM Keys
     openai_api_key: Optional[str] = field(default_factory=lambda: os.getenv('OPENAI_API_KEY'))
     gemini_api_key: Optional[str] = field(default_factory=lambda: os.getenv('GEMINI_API_KEY'))
+    groq_api_key: Optional[str] = field(default_factory=lambda: os.getenv('GROQ_API_KEY'))
     
     # News API
     news_api_key: Optional[str] = field(default_factory=lambda: os.getenv('NEWS_API_KEY'))
@@ -132,10 +133,9 @@ class Settings:
         {'name': 'GitHub Blog', 'url': 'https://github.blog/feed'},
     ])
     
-    @property
     def has_llm(self) -> bool:
         """Check if any LLM API key is configured."""
-        return bool(self.openai_api_key or self.gemini_api_key)
+        return bool(self.openai_api_key or self.gemini_api_key or self.groq_api_key)
     
     @property
     def has_news_api(self) -> bool:
