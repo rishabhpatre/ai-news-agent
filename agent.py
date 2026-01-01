@@ -23,7 +23,6 @@ from config import settings
 from sources import ArxivSource, NewsAPISource, RSSSource, HackerNewsSource
 from processing import Deduplicator, Summarizer
 from email_client.smtp_client import SMTPClient
-from email_client.gmail_client import GmailClient
 
 
 class AINewsAgent:
@@ -61,22 +60,16 @@ class AINewsAgent:
             gemini_api_key=settings.gemini_api_key,
         )
         
-        # Initialize email client - prefer SMTP (simpler, no OAuth needed)
-        if settings.has_smtp:
-            print("📧 Using SMTP (simple mode - no OAuth needed)")
-            self.email_client = SMTPClient(
-                email=settings.smtp_email,
-                password=settings.smtp_password,
-                provider=settings.smtp_provider,
-            )
-        else:
-            # Fallback to Gmail API (requires OAuth setup)
-            print("📧 Using Gmail API (requires OAuth setup)")
-            settings.ensure_credentials_dir()
-            self.email_client = GmailClient(
-                credentials_path=settings.credentials_path,
-                token_path=settings.token_path,
-            )
+        # Initialize email client
+        if not settings.has_smtp:
+            print("⚠️  SMTP not configured. Email sending will fail.")
+            print("Set SMTP_EMAIL and SMTP_PASSWORD in .env")
+        
+        self.email_client = SMTPClient(
+            email=settings.smtp_email or "",
+            password=settings.smtp_password or "",
+            provider=settings.smtp_provider,
+        )
     
     def collect_content(self, days_back: int = 1) -> dict:
         """

@@ -97,15 +97,8 @@ class Settings:
         """Check if SMTP credentials are configured."""
         return bool(self.smtp_email and self.smtp_password)
     
-    @property
-    def credentials_path(self) -> Path:
-        """Path to OAuth credentials JSON."""
-        return self.credentials_dir / 'credentials.json'
-    
-    @property
-    def token_path(self) -> Path:
-        """Path to saved OAuth token."""
-        return self.credentials_dir / 'token.pickle'
+    # Credentials directory (for future extensions)
+    credentials_dir: Path = field(default_factory=lambda: Path(__file__).parent / 'credentials')
     
     def ensure_credentials_dir(self):
         """Create credentials directory if it doesn't exist."""
