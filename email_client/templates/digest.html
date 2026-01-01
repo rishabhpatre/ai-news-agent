@@ -167,7 +167,118 @@
                     </tr>
                     {% endif %}
 
-                    <!-- Trending Discussions Section -->
+                    <!-- Watch List Section (YouTube) -->
+                    {% if videos %}
+                    <tr>
+                        <td style="padding: 0 24px 24px 24px;">
+                            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                                <tr>
+                                    <td style="padding-bottom: 16px;">
+                                        <h2 style="margin: 0; color: #f0f0f0; font-size: 18px; font-weight: 600;">
+                                            📺 Watch List
+                                        </h2>
+                                        <div
+                                            style="width: 40px; height: 3px; background: linear-gradient(90deg, #ef4444, #dc2626); margin-top: 8px; border-radius: 2px;">
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% for video in videos[:3] %}
+                                <tr>
+                                    <td style="padding: 12px 0; border-bottom: 1px solid #2a2a2a;">
+                                        <a href="{{ video.url }}"
+                                            style="color: #f87171; text-decoration: none; font-size: 15px; font-weight: 500; line-height: 1.4;">
+                                            {{ video.title }}
+                                        </a>
+                                        <p style="margin: 4px 0 0 0; color: #666; font-size: 12px;">
+                                            <span
+                                                style="display: inline-block; background: #2a2a2a; padding: 2px 8px; border-radius: 4px; color: #888;">
+                                                {{ video.source }}
+                                            </span>
+                                        </p>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </table>
+                        </td>
+                    </tr>
+                    {% endif %}
+
+                    <!-- New Tools Section (Product Hunt) -->
+                    {% if tools %}
+                    <tr>
+                        <td style="padding: 0 24px 24px 24px;">
+                            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                                <tr>
+                                    <td style="padding-bottom: 16px;">
+                                        <h2 style="margin: 0; color: #f0f0f0; font-size: 18px; font-weight: 600;">
+                                            🚀 New Tools
+                                        </h2>
+                                        <div
+                                            style="width: 40px; height: 3px; background: linear-gradient(90deg, #da552f, #ea532a); margin-top: 8px; border-radius: 2px;">
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% for tool in tools[:5] %}
+                                <tr>
+                                    <td style="padding: 12px 0; border-bottom: 1px solid #2a2a2a;">
+                                        <a href="{{ tool.url }}"
+                                            style="color: #fdba74; text-decoration: none; font-size: 15px; font-weight: 500; line-height: 1.4;">
+                                            {{ tool.title }}
+                                        </a>
+                                        <p style="margin: 4px 0 0 0; color: #666; font-size: 12px;">
+                                            <span
+                                                style="display: inline-block; background: #2a2a2a; padding: 2px 8px; border-radius: 4px; color: #888;">
+                                                Product Hunt
+                                            </span>
+                                        </p>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </table>
+                        </td>
+                    </tr>
+                    {% endif %}
+
+                    <!-- Reddit Section -->
+                    {% if reddit_posts %}
+                    <tr>
+                        <td style="padding: 0 24px 24px 24px;">
+                            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                                <tr>
+                                    <td style="padding-bottom: 16px;">
+                                        <h2 style="margin: 0; color: #f0f0f0; font-size: 18px; font-weight: 600;">
+                                            👽 Reddit Discussions
+                                        </h2>
+                                        <div
+                                            style="width: 40px; height: 3px; background: linear-gradient(90deg, #ff4500, #ff8700); margin-top: 8px; border-radius: 2px;">
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% for post in reddit_posts[:5] %}
+                                <tr>
+                                    <td style="padding: 12px 0; border-bottom: 1px solid #2a2a2a;">
+                                        <a href="{{ post.url }}"
+                                            style="color: #fdba74; text-decoration: none; font-size: 15px; font-weight: 500; line-height: 1.4;">
+                                            {{ post.title }}
+                                        </a>
+                                        <p style="margin: 4px 0 0 0; color: #666; font-size: 12px;">
+                                            <span
+                                                style="display: inline-block; background: #2a2a2a; padding: 2px 8px; border-radius: 4px; color: #ff4500; border: 1px solid rgba(255, 69, 0, 0.2);">
+                                                {{ post.source }}
+                                            </span>
+                                            <span style="margin-left: 8px; color: #666;">
+                                                {{ post.summary }}
+                                            </span>
+                                        </p>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </table>
+                        </td>
+                    </tr>
+                    {% endif %}
+
+                    <!-- Trending Discussions Section (Hacker News) -->
                     {% if discussions %}
                     <tr>
                         <td style="padding: 0 24px 24px 24px;">
@@ -175,7 +286,7 @@
                                 <tr>
                                     <td style="padding-bottom: 16px;">
                                         <h2 style="margin: 0; color: #f0f0f0; font-size: 18px; font-weight: 600;">
-                                            🔥 Trending on Hacker News
+                                            🔥 Hacker News
                                         </h2>
                                         <div
                                             style="width: 40px; height: 3px; background: linear-gradient(90deg, #f59e0b, #d97706); margin-top: 8px; border-radius: 2px;">

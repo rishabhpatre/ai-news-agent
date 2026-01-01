@@ -73,6 +73,9 @@ class SMTPClient:
         papers: List[Article],
         news_api: List[Article],
         rss_news: List[Article],
+        reddit_posts: List[Article],
+        videos: List[Article],
+        tools: List[Article],
         discussions: List[Article],
         dry_run: bool = False,
     ) -> bool:
@@ -84,6 +87,9 @@ class SMTPClient:
             papers: List of research paper articles.
             news_api: List of global news articles.
             rss_news: List of community/blog updates.
+            reddit_posts: List of Reddit posts.
+            videos: List of video articles.
+            tools: List of tool articles.
             discussions: List of HN discussions.
             dry_run: If True, print email instead of sending.
             
@@ -95,6 +101,9 @@ class SMTPClient:
             papers=papers,
             news_api=news_api,
             rss_news=rss_news,
+            reddit_posts=reddit_posts,
+            videos=videos,
+            tools=tools,
             discussions=discussions,
         )
         
@@ -115,7 +124,7 @@ class SMTPClient:
         message['To'] = to_header
         
         # Plain text fallback
-        plain_text = self._create_plain_text(papers, news_api, rss_news, discussions)
+        plain_text = self._create_plain_text(papers, news_api, rss_news, reddit_posts, videos, tools, discussions)
         message.attach(MIMEText(plain_text, 'plain'))
         
         # HTML content
@@ -156,22 +165,29 @@ class SMTPClient:
         papers: List[Article],
         news_api: List[Article],
         rss_news: List[Article],
+        reddit_posts: List[Article],
+        videos: List[Article],
+        tools: List[Article],
         discussions: List[Article],
     ) -> str:
         """Render the HTML email template."""
         try:
+            total_count = len(papers) + len(news_api) + len(rss_news) + len(reddit_posts) + len(videos) + len(tools) + len(discussions)
             template = self._jinja_env.get_template('digest.html')
             return template.render(
                 date=datetime.now().strftime('%B %d, %Y'),
                 papers=papers,
                 news_api=news_api,
                 rss_news=rss_news,
+                reddit_posts=reddit_posts,
+                videos=videos,
+                tools=tools,
                 discussions=discussions,
-                total_count=len(papers) + len(news_api) + len(rss_news) + len(discussions),
+                total_count=total_count,
             )
         except Exception as e:
             print(f"Template rendering failed: {e}")
-            return self._create_basic_html(papers, news_api, rss_news, discussions)
+            return self._create_basic_html(papers, news_api, rss_news, discussions) # Fallback doesn't need all sources
     
     def _create_basic_html(
         self,
@@ -220,6 +236,9 @@ class SMTPClient:
         papers: List[Article],
         news_api: List[Article],
         rss_news: List[Article],
+        reddit_posts: List[Article],
+        videos: List[Article],
+        tools: List[Article],
         discussions: List[Article],
     ) -> str:
         """Create plain text version of the digest."""
@@ -252,9 +271,33 @@ class SMTPClient:
                 lines.append(f"• {n.title} ({n.source})")
                 lines.append(f"  {n.url}")
                 lines.append("")
+
+        if videos:
+            lines.append("📺 WATCH LIST")
+            lines.append("-" * 30)
+            for v in videos[:3]:
+                lines.append(f"• {v.title} ({v.source})")
+                lines.append(f"  {v.url}")
+                lines.append("")
+
+        if tools:
+            lines.append("🚀 NEW TOOLS (Product Hunt)")
+            lines.append("-" * 30)
+            for t in tools[:5]:
+                lines.append(f"• {t.title}")
+                lines.append(f"  {t.url}")
+                lines.append("")
+
+        if reddit_posts:
+            lines.append("👽 REDDIT DISCUSSIONS")
+            lines.append("-" * 30)
+            for r in reddit_posts[:5]:
+                lines.append(f"• {r.title} ({r.source})")
+                lines.append(f"  {r.url}")
+                lines.append("")
         
         if discussions:
-            lines.append("🔥 TRENDING DISCUSSIONS")
+            lines.append("🔥 HACKER NEWS")
             lines.append("-" * 30)
             for d in discussions[:5]:
                 lines.append(f"• {d.title}")

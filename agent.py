@@ -20,8 +20,12 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 
 from config import settings
-from sources import ArxivSource, NewsAPISource, RSSSource, HackerNewsSource
-from processing import Deduplicator, Summarizer
+from sources.arxiv_source import ArxivSource
+from sources.newsapi_source import NewsAPISource
+from sources.rss_source import RSSSource
+from sources.hackernews_source import HackerNewsSource
+from processing.deduplicator import Deduplicator
+from processing.summarizer import Summarizer
 from email_client.smtp_client import SMTPClient
 
 
@@ -94,8 +98,53 @@ class AINewsAgent:
         
         print("  • RSS feeds...")
         rss_news = self.rss_source.fetch(days_back=days_back)
-        print(f"    Found {len(rss_news)} from RSS")
+        print(f"    Found {len(rss_news)} articles")
         
+        # 4. Reddit (Via RSS)
+        reddit_posts = []
+        print("  • Reddit...")
+        for feed in settings.reddit_feeds:
+            try:
+                # Use RSSSource for each subreddit
+                r_source = RSSSource([feed])
+                posts = r_source.fetch(days_back=days_back)
+                # Ensure source is labeled correctly (e.g. "r/MachineLearning")
+                for p in posts:
+                    p.source = feed['name']
+                reddit_posts.extend(posts)
+            except Exception as e:
+                print(f"    Error fetching {feed['name']}: {e}")
+        print(f"    Found {len(reddit_posts)} posts")
+
+        # 5. YouTube (via RSS)
+        print("  • YouTube...")
+        videos = []
+        for feed in settings.youtube_feeds:
+            try:
+                # RSSSource expects list of dicts
+                v_source = RSSSource([feed]) 
+                # Fetch videos (treat as articles but we'll categorize them)
+                v_items = v_source.fetch(days_back=days_back)
+                # Add channel name to source (redundant if RSSSource does it, but safe)
+                for v in v_items:
+                    v.source = feed['name']
+                videos.extend(v_items)
+            except Exception as e:
+                print(f"    Error fetching {feed['name']}: {e}")
+        print(f"    Found {len(videos)} videos")
+        
+        # 6. Product Hunt (via RSS)
+        print("  • Product Hunt...")
+        tools = []
+        try:
+            ph_feed = [{'name': 'Product Hunt', 'url': settings.product_hunt_rss}]
+            ph_source = RSSSource(ph_feed)
+            tools = ph_source.fetch(days_back=days_back)
+            print(f"    Found {len(tools)} tools")
+        except Exception as e:
+            print(f"    Error fetching Product Hunt: {e}")
+
+        # Hackernews
         print("  • Hacker News discussions...")
         discussions = self.hn_source.fetch(days_back=days_back)
         print(f"    Found {len(discussions)} discussions")
@@ -105,6 +154,9 @@ class AINewsAgent:
             'papers': papers,
             'news_api': news_api,
             'rss_news': rss_news,
+            'reddit_posts': reddit_posts,
+            'videos': videos,
+            'tools': tools,
             'discussions': discussions,
         }
     
@@ -138,6 +190,24 @@ class AINewsAgent:
         rss_news = rss_news[:settings.max_news]
         print(f"    {len(content['rss_news'])} → {len(rss_news)}")
         
+        # Deduplicate Reddit
+        print("  • Deduplicating Reddit...")
+        reddit_posts = self.deduplicator.deduplicate_all(content['reddit_posts'])
+        reddit_posts = reddit_posts[:5] # Hard limit for now
+        print(f"    {len(content['reddit_posts'])} → {len(reddit_posts)}")
+
+        # Deduplicate Videos
+        print("  • Deduplicating Videos...")
+        videos = self.deduplicator.deduplicate_all(content['videos'])
+        videos = videos[:3] 
+        print(f"    {len(content['videos'])} → {len(videos)}")
+        
+        # Deduplicate Tools
+        print("  • Deduplicating Tools...")
+        tools = self.deduplicator.deduplicate_all(content['tools'])
+        tools = tools[:5] 
+        print(f"    {len(content['tools'])} → {len(tools)}")
+        
         # Deduplicate discussions
         print("  • Deduplicating discussions...")
         discussions = self.deduplicator.deduplicate_all(content['discussions'])
@@ -150,30 +220,34 @@ class AINewsAgent:
             papers = self.summarizer.summarize_batch(papers)
             news_api = self.summarizer.summarize_batch(news_api)
             rss_news = self.summarizer.summarize_batch(rss_news)
+            # We can summarize reddit too if needed, but titles are usually descriptive
         
         return {
             'papers': papers,
             'news_api': news_api,
             'rss_news': rss_news,
+            'reddit_posts': reddit_posts,
+            'videos': videos,
+            'tools': tools,
             'discussions': discussions,
         }
     
     def send_digest(self, content: dict, dry_run: bool = False) -> bool:
         """
-        Send the email digest.
+        Send the digest email.
         
         Args:
             content: Processed content dict.
-            dry_run: If True, preview without sending.
+            dry_run: If True, print email instead of sending.
             
         Returns:
             True if successful.
         """
-        if not settings.recipient_email:
+        if not dry_run and not settings.recipient_email:
             print("\n❌ ERROR: RECIPIENT_EMAIL not set in .env")
             return False
         
-        total = len(content['papers']) + len(content['news_api']) + len(content['rss_news']) + len(content['discussions'])
+        total = sum(len(v) for v in content.values())
         print(f"\n📧 {'Previewing' if dry_run else 'Sending'} digest with {total} items...")
         
         return self.email_client.send_digest(
@@ -181,6 +255,9 @@ class AINewsAgent:
             papers=content['papers'],
             news_api=content['news_api'],
             rss_news=content['rss_news'],
+            reddit_posts=content['reddit_posts'],
+            videos=content['videos'],
+            tools=content['tools'],
             discussions=content['discussions'],
             dry_run=dry_run,
         )

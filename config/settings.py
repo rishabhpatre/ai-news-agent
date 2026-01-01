@@ -74,6 +74,29 @@ class Settings:
         'cs.NE',   # Neural and Evolutionary Computing
     ])
     
+    # YouTube Feeds (Channels)
+    youtube_feeds: List[dict] = field(default_factory=lambda: [
+        {'name': 'Two Minute Papers', 'url': 'https://www.youtube.com/feeds/videos.xml?channel_id=UCbfYPyITQ-7l4upoX8nvctg'},
+        {'name': 'AI Explained', 'url': 'https://www.youtube.com/feeds/videos.xml?channel_id=UCcnJ8uNYChtmbCtleKrQKAL'},
+    ])
+    
+    # Product Hunt
+    product_hunt_rss: str = "https://www.producthunt.com/feed?category=artificial-intelligence"
+    
+    # Reddit Feeds (RSS)
+    reddit_feeds: List[dict] = field(default_factory=lambda: [
+        {'name': 'r/artificial', 'url': 'https://www.reddit.com/r/artificial/.rss'},
+        {'name': 'r/MachineLearning', 'url': 'https://www.reddit.com/r/MachineLearning/.rss'},
+        {'name': 'r/LocalLLaMA', 'url': 'https://www.reddit.com/r/LocalLLaMA/.rss'},
+        {'name': 'r/ChatGPT', 'url': 'https://www.reddit.com/r/ChatGPT/.rss'},
+        {'name': 'r/OpenAI', 'url': 'https://www.reddit.com/r/OpenAI/.rss'},
+        {'name': 'r/StableDiffusion', 'url': 'https://www.reddit.com/r/StableDiffusion/.rss'},
+        {'name': 'r/ArtificialInteligence', 'url': 'https://www.reddit.com/r/ArtificialInteligence/.rss'},
+        {'name': 'r/AItools', 'url': 'https://www.reddit.com/r/AItools/.rss'},
+        {'name': 'r/singularity', 'url': 'https://www.reddit.com/r/singularity/.rss'},
+        {'name': 'r/PromptEngineering', 'url': 'https://www.reddit.com/r/PromptEngineering/.rss'},
+    ])
+    
     # RSS Feeds to monitor
     rss_feeds: List[dict] = field(default_factory=lambda: [
         {'name': 'MIT Tech Review AI', 'url': 'https://www.technologyreview.com/topic/artificial-intelligence/feed'},
@@ -104,6 +127,8 @@ class Settings:
     def has_smtp(self) -> bool:
         """Check if SMTP credentials are configured."""
         return bool(self.smtp_email and self.smtp_password)
+    
+
     
     # Credentials directory (for future extensions)
     credentials_dir: Path = field(default_factory=lambda: Path(__file__).parent / 'credentials')
