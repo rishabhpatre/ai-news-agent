@@ -117,6 +117,8 @@ class Settings:
         {'name': 'Wired AI', 'url': 'https://www.wired.com/feed/tag/ai/latest/rss'},
         {'name': 'TechCrunch AI', 'url': 'https://techcrunch.com/category/artificial-intelligence/feed/'},
         {'name': 'BBC News', 'url': 'https://feeds.bbci.co.uk/news/rss.xml'},
+        {'name': 'GitHub Blog', 'url': 'https://github.blog/feed'},
+        {'name': 'HF Trending', 'url': 'https://zernel.github.io/huggingface-trending-feed/feed.xml'},
     ])
     
     @property

@@ -108,7 +108,7 @@ class NewsAPISource:
     def _calculate_relevance(self, item: dict) -> float:
         """Calculate relevance score."""
         score = 0.0
-        text = (item.get('title', '') + ' ' + item.get('description', '')).lower()
+        text = ((item.get('title') or '') + ' ' + (item.get('description') or '')).lower()
         
         # High-value terms
         if any(term in text for term in ['llm', 'large language model', 'ai agent']):
