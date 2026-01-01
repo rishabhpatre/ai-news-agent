@@ -46,7 +46,7 @@ class Summarizer:
             try:
                 import google.generativeai as genai
                 genai.configure(api_key=gemini_api_key)
-                self._gemini_model = genai.GenerativeModel('gemini-pro')
+                self._gemini_model = genai.GenerativeModel('gemini-1.5-flash')
             except ImportError:
                 print("Google Generative AI library not installed")
     
@@ -74,6 +74,8 @@ class Summarizer:
         # Try LLM summarization
         if self.has_llm:
             try:
+                import time
+                time.sleep(1) # Simple rate limiting for free tier
                 return self._summarize_with_llm(article)
             except Exception as e:
                 print(f"LLM summarization failed: {e}")
@@ -81,28 +83,31 @@ class Summarizer:
         # Fallback to extractive
         return self._extractive_summary(article.summary or article.title)
     
-    def summarize_batch(self, articles: List[Article], max_batch: int = 20) -> List[Article]:
+    def summarize_batch(self, articles: List[Article], max_batch: int = 15) -> List[Article]:
         """
         Summarize a batch of articles.
         
         Args:
             articles: List of Article objects.
-            max_batch: Maximum number to process (to limit API costs).
+            max_batch: Maximum number to process (to limit API costs and rate limits).
             
         Returns:
             Articles with updated summaries.
         """
         for article in articles[:max_batch]:
-            if len(article.summary) > self.max_summary_length:
-                article.summary = self.summarize(article)
+            article.summary = self.summarize(article)
         return articles
     
     def _summarize_with_llm(self, article: Article) -> str:
-        """Use LLM to generate a concise summary."""
-        prompt = f"""Summarize this AI/ML article in 1-2 sentences (max {self.max_summary_length} chars):
+        """Use LLM to generate a structured summary."""
+        prompt = f"""Summarize this content as a high-signal brief for a busy AI professional.
+Focus on the 'why it matters' and 'key takeaways'.
+Use 1-2 bullet points if there are multiple important facts.
+Keep it under {self.max_summary_length} characters.
 
 Title: {article.title}
-Content: {article.summary[:1000]}
+Source: {article.source}
+Content: {article.summary[:1500]}
 
 Summary:"""
         
@@ -110,7 +115,7 @@ Summary:"""
             response = self._openai_client.chat.completions.create(
                 model="gpt-4o-mini",
                 messages=[{"role": "user", "content": prompt}],
-                max_tokens=100,
+                max_tokens=150,
                 temperature=0.3,
             )
             return response.choices[0].message.content.strip()[:self.max_summary_length]

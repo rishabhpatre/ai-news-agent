@@ -256,6 +256,8 @@ class SMTPClient:
             lines.append("-" * 30)
             for n in rss_news[:10]:
                 lines.append(f"• {n.title} ({n.source})")
+                if n.summary:
+                    lines.append(f"  {n.summary}")
                 lines.append(f"  {n.url}")
                 lines.append("")
 
@@ -264,6 +266,8 @@ class SMTPClient:
             lines.append("-" * 30)
             for p in papers[:10]:
                 lines.append(f"• {p.title}")
+                if p.summary:
+                    lines.append(f"  {p.summary}")
                 lines.append(f"  {p.url}")
                 lines.append("")
         
@@ -272,6 +276,8 @@ class SMTPClient:
             lines.append("-" * 30)
             for n in news_api[:10]:
                 lines.append(f"• {n.title} ({n.source})")
+                if n.summary:
+                    lines.append(f"  {n.summary}")
                 lines.append(f"  {n.url}")
                 lines.append("")
 
@@ -280,38 +286,48 @@ class SMTPClient:
             lines.append("-" * 30)
             for r in reddit_posts[:5]:
                 lines.append(f"• {r.title} ({r.source})")
+                if r.summary:
+                    lines.append(f"  {r.summary}")
                 lines.append(f"  {r.url}")
                 lines.append("")
 
         if hf_news:
             lines.append("🤗 HUGGING FACE HUB")
             lines.append("-" * 30)
-            for h in hf_news[:5]:
+            for h in hf_news[:10]:
                 lines.append(f"• {h.title}")
+                if h.summary:
+                    lines.append(f"  {h.summary}")
                 lines.append(f"  {h.url}")
                 lines.append("")
         
         if videos:
             lines.append("📺 WATCH LIST")
             lines.append("-" * 30)
-            for v in videos[:3]:
+            for v in videos[:10]:
                 lines.append(f"• {v.title} ({v.source})")
+                if v.summary:
+                    lines.append(f"  {v.summary}")
                 lines.append(f"  {v.url}")
                 lines.append("")
 
         if tools:
             lines.append("🚀 NEW TOOLS (Product Hunt)")
             lines.append("-" * 30)
-            for t in tools[:5]:
+            for t in tools[:10]:
                 lines.append(f"• {t.title}")
+                if t.summary:
+                    lines.append(f"  {t.summary}")
                 lines.append(f"  {t.url}")
                 lines.append("")
         
         if discussions:
             lines.append("🔥 HACKER NEWS")
             lines.append("-" * 30)
-            for d in discussions[:5]:
+            for d in discussions[:10]:
                 lines.append(f"• {d.title}")
+                if d.summary:
+                    lines.append(f"  {d.summary}")
                 lines.append(f"  {d.url}")
                 lines.append("")
         

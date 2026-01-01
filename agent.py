@@ -244,7 +244,9 @@ class AINewsAgent:
             news_api = self.summarizer.summarize_batch(news_api)
             rss_news = self.summarizer.summarize_batch(rss_news)
             hf_news = self.summarizer.summarize_batch(hf_news)
-            # We can summarize reddit too if needed, but titles are usually descriptive
+            reddit_posts = self.summarizer.summarize_batch(reddit_posts)
+            videos = self.summarizer.summarize_batch(videos)
+            discussions = self.summarizer.summarize_batch(discussions)
         
         return {
             'papers': papers,
