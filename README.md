@@ -26,22 +26,25 @@ cp .env.example .env
 # Edit .env with your API keys
 ```
 
-### 3. Setup Gmail OAuth
+### 3. Configure Email (Simple SMTP)
 
-1. Go to [Google Cloud Console](https://console.cloud.google.com/)
-2. Create a new project
-3. Enable the Gmail API
-4. Go to Credentials → Create Credentials → OAuth client ID
-5. Select "Desktop app" as application type
-6. Download the JSON and save as `config/credentials/credentials.json`
+1. **Enable 2-Factor Auth** on your Google account (https://myaccount.google.com/security)
+2. **Get an App Password**:
+   - Go to: https://myaccount.google.com/apppasswords
+   - Select "Mail" and generate
+   - Copy the 16-character password
+3. **Update `.env`**:
+   ```bash
+   RECIPIENT_EMAIL=your.email@gmail.com
+   SMTP_EMAIL=your.email@gmail.com
+   SMTP_PASSWORD=your-app-password
+   ```
 
-### 4. First Run (OAuth Authorization)
+### 4. First Run
 
 ```bash
 python agent.py
 ```
-
-This will open a browser for Gmail authorization. After authorizing, the token is saved locally.
 
 ### 5. Schedule Daily Runs
 
@@ -145,6 +148,17 @@ Add these secrets:
 ### Step 3: Done!
 
 The workflow runs daily at **8:00 AM IST**. You can also trigger it manually from the Actions tab.
+
+---
+
+### Troubleshooting
+
+**Error: `refusing to allow a Personal Access Token to create or update workflow`**
+This means your GitHub token is missing permissions.
+1. Go to **Settings** → **Developer Settings** → **Personal access tokens (Tokens (classic))**
+2. Generate new token
+3. **Crucial**: Check the `workflow` checkbox (and `repo`)
+4. Use this new token as your password when pushing
 
 ---
 
