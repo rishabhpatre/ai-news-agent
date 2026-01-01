@@ -1,4 +1,4 @@
-"""Email client package for Gmail integration."""
-from .gmail_client import GmailClient
+"""Email client package."""
+from .smtp_client import SMTPClient
 
-__all__ = ['GmailClient']
+__all__ = ['SMTPClient']
