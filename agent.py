@@ -93,13 +93,13 @@ class AINewsAgent:
         papers = self.arxiv_source.fetch(days_back=days_back)
         print(f"    Found {len(papers)} papers")
         
-        # 2. NewsAPI (High frequency - keep tight)
+        # 2. NewsAPI (High frequency - but indexing can be delayed, use 3 days)
         print("  • News articles...")
         news_api = []
         if settings.has_news_api:
-            # The original code called self.newsapi_source.fetch(days_back=days_back)
-            # I must preserve that.
-             news_api = self.newsapi_source.fetch(days_back=days_back)
+            # Match lookback to slow sources for consistency or at least 3 days
+            news_lookback = max(3, days_back)
+            news_api = self.newsapi_source.fetch(days_back=news_lookback)
         print(f"    Found {len(news_api)} from NewsAPI")
         
         # === SLOW NEWS SOURCES (Blogs, Reddit, YouTube) ===
