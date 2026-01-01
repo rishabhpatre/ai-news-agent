@@ -7,6 +7,7 @@ import requests
 from datetime import datetime, timedelta
 from typing import List, Set
 from concurrent.futures import ThreadPoolExecutor, as_completed
+import re
 from .arxiv_source import Article
 
 
@@ -124,9 +125,14 @@ class HackerNewsSource:
         return stories
     
     def _is_relevant(self, title: str) -> bool:
-        """Check if a story title is AI-related."""
+        """Check if a story title is AI-related using word boundaries."""
         title_lower = title.lower()
-        return any(kw in title_lower for kw in self.keywords)
+        
+        for kw in self.keywords:
+            # Use regex for whole word matching to avoid partial matches
+            if re.search(r'\b' + re.escape(kw.lower()) + r'\b', title_lower):
+                return True
+        return False
     
     def _calculate_relevance(self, title: str, score: int) -> float:
         """Calculate relevance score based on keywords and HN score."""

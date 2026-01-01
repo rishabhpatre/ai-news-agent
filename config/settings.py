@@ -82,6 +82,7 @@ class Settings:
         {'name': 'OpenAI Blog', 'url': 'https://openai.com/index/rss.xml'},
         {'name': 'Wired AI', 'url': 'https://www.wired.com/feed/tag/ai/latest/rss'},
         {'name': 'TechCrunch AI', 'url': 'https://techcrunch.com/category/artificial-intelligence/feed/'},
+        {'name': 'BBC News', 'url': 'https://feeds.bbci.co.uk/news/rss.xml'},
     ])
     
     @property
