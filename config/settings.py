@@ -95,6 +95,12 @@ class Settings:
         {'name': 'r/AItools', 'url': 'https://www.reddit.com/r/AItools/.rss'},
         {'name': 'r/singularity', 'url': 'https://www.reddit.com/r/singularity/.rss'},
         {'name': 'r/PromptEngineering', 'url': 'https://www.reddit.com/r/PromptEngineering/.rss'},
+        {'name': 'r/ClaudeAI', 'url': 'https://www.reddit.com/r/ClaudeAI/.rss'},
+        {'name': 'r/Midjourney', 'url': 'https://www.reddit.com/r/Midjourney/.rss'},
+        {'name': 'r/LLM', 'url': 'https://www.reddit.com/r/LLM/.rss'},
+        {'name': 'r/GenerativeAI', 'url': 'https://www.reddit.com/r/GenerativeAI/.rss'},
+        {'name': 'r/DeepLearning', 'url': 'https://www.reddit.com/r/DeepLearning/.rss'},
+        {'name': 'r/learnmachinelearning', 'url': 'https://www.reddit.com/r/learnmachinelearning/.rss'},
     ])
     
     # RSS Feeds to monitor
