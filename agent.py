@@ -85,17 +85,27 @@ class AINewsAgent:
         Returns:
             Dict with 'papers', 'news', and 'discussions' lists.
         """
-        print("📡 Collecting content from sources...")
+        print(f"📡 Collecting content from sources (Lookback: {days_back} days standard, 3 days for tools/video)...")
         
-        # Fetch from each source
+        # 1. ArXiv Papers (High frequency - keep tight)
         print("  • ArXiv papers...")
         papers = self.arxiv_source.fetch(days_back=days_back)
         print(f"    Found {len(papers)} papers")
         
+        # 2. NewsAPI (High frequency - keep tight)
         print("  • News articles...")
-        news_api = self.newsapi_source.fetch(days_back=days_back)
+        news_api = []
+        if settings.has_news_api:
+            # The original code called self.newsapi_source.fetch(days_back=days_back)
+            # I must preserve that.
+             news_api = self.newsapi_source.fetch(days_back=days_back)
         print(f"    Found {len(news_api)} from NewsAPI")
         
+        # === SLOW NEWS SOURCES (Blogs, Reddit, YouTube) ===
+        # These don't post daily, so we look back 3 days to avoid "empty" sections
+        extended_days = max(3, days_back)
+        
+        # 3. RSS Feeds (Blogs)
         print("  • RSS feeds...")
         rss_news = self.rss_source.fetch(days_back=days_back)
         print(f"    Found {len(rss_news)} articles")
@@ -124,7 +134,7 @@ class AINewsAgent:
                 # RSSSource expects list of dicts
                 v_source = RSSSource([feed]) 
                 # Fetch videos (treat as articles but we'll categorize them)
-                v_items = v_source.fetch(days_back=days_back)
+                v_items = v_source.fetch(days_back=extended_days)
                 # Add channel name to source (redundant if RSSSource does it, but safe)
                 for v in v_items:
                     v.source = feed['name']
@@ -139,12 +149,12 @@ class AINewsAgent:
         try:
             ph_feed = [{'name': 'Product Hunt', 'url': settings.product_hunt_rss}]
             ph_source = RSSSource(ph_feed)
-            tools = ph_source.fetch(days_back=days_back)
+            tools = ph_source.fetch(days_back=extended_days)
             print(f"    Found {len(tools)} tools")
         except Exception as e:
             print(f"    Error fetching Product Hunt: {e}")
 
-        # Hackernews
+        # Hackernews (High frequency - keep tight, or maybe extended? HN moves fast, keeping 1 day is better)
         print("  • Hacker News discussions...")
         discussions = self.hn_source.fetch(days_back=days_back)
         print(f"    Found {len(discussions)} discussions")
