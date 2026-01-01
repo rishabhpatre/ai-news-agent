@@ -9,7 +9,7 @@ An autonomous Python agent that scans the web daily for the latest LLM, AI tools
 - 🔄 **Smart Deduplication**: Removes duplicate articles across sources
 - 📧 **Beautiful Email Digests**: Mobile-responsive HTML emails
 - ⏰ **Daily Scheduling**: Configurable send time (Default: 2-day lookback)
-- 📡 **Robust Source Support**: Automated fetching from 12+ YouTube channels including Parker Prompts and Futurepedia.
+- 📡 **Robust Source Support**: Automated fetching from AI based YouTube channels 
 
 ## Quick Start
 
