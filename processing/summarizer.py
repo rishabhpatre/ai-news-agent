@@ -101,13 +101,17 @@ class Summarizer:
     
     def _summarize_with_llm(self, article: Article) -> str:
         """Use LLM to generate a structured summary."""
-        prompt = f"""Summarize this content as a high-signal brief for a busy AI professional.
+        # Prepare context for LLM
+        context = article.summary if article.summary and len(article.summary) > 20 else article.title
+        
+        prompt = f"""Title: {article.title}
+Content: {context}
+
+Generate a high-signal brief for a busy AI professional.
 Focus on the 'why it matters' and 'key takeaways'.
 Use 1-2 bullet points if there are multiple important facts.
 Keep it under {self.max_summary_length} characters.
 
-Title: {article.title}
-Source: {article.source}
 Content: {article.summary[:1500]}
 
 Summary:"""
