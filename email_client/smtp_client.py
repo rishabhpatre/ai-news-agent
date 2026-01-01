@@ -71,7 +71,8 @@ class SMTPClient:
         self,
         to_email: str,
         papers: List[Article],
-        news: List[Article],
+        news_api: List[Article],
+        rss_news: List[Article],
         discussions: List[Article],
         dry_run: bool = False,
     ) -> bool:
@@ -81,7 +82,8 @@ class SMTPClient:
         Args:
             to_email: Recipient email address.
             papers: List of research paper articles.
-            news: List of news articles.
+            news_api: List of global news articles.
+            rss_news: List of community/blog updates.
             discussions: List of HN discussions.
             dry_run: If True, print email instead of sending.
             
@@ -91,7 +93,8 @@ class SMTPClient:
         # Render HTML template
         html_content = self._render_template(
             papers=papers,
-            news=news,
+            news_api=news_api,
+            rss_news=rss_news,
             discussions=discussions,
         )
         
@@ -112,7 +115,7 @@ class SMTPClient:
         message['To'] = to_header
         
         # Plain text fallback
-        plain_text = self._create_plain_text(papers, news, discussions)
+        plain_text = self._create_plain_text(papers, news_api, rss_news, discussions)
         message.attach(MIMEText(plain_text, 'plain'))
         
         # HTML content
@@ -151,7 +154,8 @@ class SMTPClient:
     def _render_template(
         self,
         papers: List[Article],
-        news: List[Article],
+        news_api: List[Article],
+        rss_news: List[Article],
         discussions: List[Article],
     ) -> str:
         """Render the HTML email template."""
@@ -160,18 +164,20 @@ class SMTPClient:
             return template.render(
                 date=datetime.now().strftime('%B %d, %Y'),
                 papers=papers,
-                news=news,
+                news_api=news_api,
+                rss_news=rss_news,
                 discussions=discussions,
-                total_count=len(papers) + len(news) + len(discussions),
+                total_count=len(papers) + len(news_api) + len(rss_news) + len(discussions),
             )
         except Exception as e:
             print(f"Template rendering failed: {e}")
-            return self._create_basic_html(papers, news, discussions)
+            return self._create_basic_html(papers, news_api, rss_news, discussions)
     
     def _create_basic_html(
         self,
         papers: List[Article],
-        news: List[Article],
+        news_api: List[Article],
+        rss_news: List[Article],
         discussions: List[Article],
     ) -> str:
         """Create basic HTML if template fails."""
@@ -188,9 +194,15 @@ class SMTPClient:
                 html += f'<li><a href="{p.url}">{p.title}</a></li>'
             html += "</ul>"
         
-        if news:
-            html += "<h2>📰 Industry News</h2><ul>"
-            for n in news[:10]:
+        if news_api:
+            html += "<h2>📰 Global Headlines</h2><ul>"
+            for n in news_api[:10]:
+                html += f'<li><a href="{n.url}">{n.title}</a> ({n.source})</li>'
+            html += "</ul>"
+            
+        if rss_news:
+            html += "<h2>🌐 Community Updates</h2><ul>"
+            for n in rss_news[:10]:
                 html += f'<li><a href="{n.url}">{n.title}</a> ({n.source})</li>'
             html += "</ul>"
         
@@ -206,7 +218,8 @@ class SMTPClient:
     def _create_plain_text(
         self,
         papers: List[Article],
-        news: List[Article],
+        news_api: List[Article],
+        rss_news: List[Article],
         discussions: List[Article],
     ) -> str:
         """Create plain text version of the digest."""
@@ -224,10 +237,18 @@ class SMTPClient:
                 lines.append(f"  {p.url}")
                 lines.append("")
         
-        if news:
-            lines.append("📰 INDUSTRY NEWS")
+        if news_api:
+            lines.append("📰 GLOBAL HEADLINES")
             lines.append("-" * 30)
-            for n in news[:10]:
+            for n in news_api[:10]:
+                lines.append(f"• {n.title} ({n.source})")
+                lines.append(f"  {n.url}")
+                lines.append("")
+                
+        if rss_news:
+            lines.append("🌐 COMMUNITY UPDATES")
+            lines.append("-" * 30)
+            for n in rss_news[:10]:
                 lines.append(f"• {n.title} ({n.source})")
                 lines.append(f"  {n.url}")
                 lines.append("")

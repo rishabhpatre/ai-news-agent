@@ -81,22 +81,22 @@
                     </tr>
                     {% endif %}
 
-                    <!-- Industry News Section -->
-                    {% if news %}
+                    <!-- Global Headlines Section -->
+                    {% if news_api %}
                     <tr>
                         <td style="padding: 0 24px 24px 24px;">
                             <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                                 <tr>
                                     <td style="padding-bottom: 16px;">
                                         <h2 style="margin: 0; color: #f0f0f0; font-size: 18px; font-weight: 600;">
-                                            📰 Industry News
+                                            📰 Global Headlines
                                         </h2>
                                         <div
                                             style="width: 40px; height: 3px; background: linear-gradient(90deg, #10b981, #059669); margin-top: 8px; border-radius: 2px;">
                                         </div>
                                     </td>
                                 </tr>
-                                {% for article in news[:10] %}
+                                {% for article in news_api[:10] %}
                                 <tr>
                                     <td style="padding: 12px 0; border-bottom: 1px solid #2a2a2a;">
                                         <a href="{{ article.url }}"
@@ -106,6 +106,49 @@
                                         <p style="margin: 4px 0 0 0; color: #666; font-size: 12px;">
                                             <span
                                                 style="display: inline-block; background: #2a2a2a; padding: 2px 8px; border-radius: 4px; color: #888;">
+                                                {{ article.source }}
+                                            </span>
+                                        </p>
+                                        {% if article.summary %}
+                                        <p
+                                            style="margin: 8px 0 0 0; color: #a0a0a0; font-size: 13px; line-height: 1.5;">
+                                            {{ article.summary[:150] }}{% if article.summary|length > 150 %}...{% endif
+                                            %}
+                                        </p>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </table>
+                        </td>
+                    </tr>
+                    {% endif %}
+
+                    <!-- Community Updates Section (RSS) -->
+                    {% if rss_news %}
+                    <tr>
+                        <td style="padding: 0 24px 24px 24px;">
+                            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                                <tr>
+                                    <td style="padding-bottom: 16px;">
+                                        <h2 style="margin: 0; color: #f0f0f0; font-size: 18px; font-weight: 600;">
+                                            🌐 Community Updates
+                                        </h2>
+                                        <div
+                                            style="width: 40px; height: 3px; background: linear-gradient(90deg, #8b5cf6, #7c3aed); margin-top: 8px; border-radius: 2px;">
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% for article in rss_news[:10] %}
+                                <tr>
+                                    <td style="padding: 12px 0; border-bottom: 1px solid #2a2a2a;">
+                                        <a href="{{ article.url }}"
+                                            style="color: #a78bfa; text-decoration: none; font-size: 15px; font-weight: 500; line-height: 1.4;">
+                                            {{ article.title }}
+                                        </a>
+                                        <p style="margin: 4px 0 0 0; color: #666; font-size: 12px;">
+                                            <span
+                                                style="display: inline-block; background: #2a2a2a; padding: 2px 8px; border-radius: 4px; color: #a78bfa; border: 1px solid rgba(167, 139, 250, 0.2);">
                                                 {{ article.source }}
                                             </span>
                                         </p>

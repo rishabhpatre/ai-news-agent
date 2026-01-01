@@ -100,12 +100,11 @@ class AINewsAgent:
         discussions = self.hn_source.fetch(days_back=days_back)
         print(f"    Found {len(discussions)} discussions")
         
-        # Combine news sources
-        all_news = news_api + rss_news
-        
+        # Return separate lists
         return {
             'papers': papers,
-            'news': all_news,
+            'news_api': news_api,
+            'rss_news': rss_news,
             'discussions': discussions,
         }
     
@@ -127,11 +126,17 @@ class AINewsAgent:
         papers = papers[:settings.max_papers]
         print(f"    {len(content['papers'])} → {len(papers)}")
         
-        # Deduplicate news
-        print("  • Deduplicating news...")
-        news = self.deduplicator.deduplicate_all(content['news'])
-        news = news[:settings.max_news]
-        print(f"    {len(content['news'])} → {len(news)}")
+        # Deduplicate NewsAPI
+        print("  • Deduplicating headlines...")
+        news_api = self.deduplicator.deduplicate_all(content['news_api'])
+        news_api = news_api[:settings.max_news]
+        print(f"    {len(content['news_api'])} → {len(news_api)}")
+
+        # Deduplicate RSS
+        print("  • Deduplicating RSS feeds...")
+        rss_news = self.deduplicator.deduplicate_all(content['rss_news'])
+        rss_news = rss_news[:settings.max_news]
+        print(f"    {len(content['rss_news'])} → {len(rss_news)}")
         
         # Deduplicate discussions
         print("  • Deduplicating discussions...")
@@ -143,11 +148,13 @@ class AINewsAgent:
         if self.summarizer.has_llm:
             print("  • Generating AI summaries...")
             papers = self.summarizer.summarize_batch(papers)
-            news = self.summarizer.summarize_batch(news)
+            news_api = self.summarizer.summarize_batch(news_api)
+            rss_news = self.summarizer.summarize_batch(rss_news)
         
         return {
             'papers': papers,
-            'news': news,
+            'news_api': news_api,
+            'rss_news': rss_news,
             'discussions': discussions,
         }
     
@@ -166,13 +173,14 @@ class AINewsAgent:
             print("\n❌ ERROR: RECIPIENT_EMAIL not set in .env")
             return False
         
-        total = len(content['papers']) + len(content['news']) + len(content['discussions'])
+        total = len(content['papers']) + len(content['news_api']) + len(content['rss_news']) + len(content['discussions'])
         print(f"\n📧 {'Previewing' if dry_run else 'Sending'} digest with {total} items...")
         
         return self.email_client.send_digest(
             to_email=settings.recipient_email,
             papers=content['papers'],
-            news=content['news'],
+            news_api=content['news_api'],
+            rss_news=content['rss_news'],
             discussions=content['discussions'],
             dry_run=dry_run,
         )
