@@ -140,10 +140,12 @@ Go to your GitHub repo → Settings → Secrets and variables → Actions → Ne
 Add these secrets:
 | Secret Name | Value |
 |-------------|-------|
-| `RECIPIENT_EMAIL` | your.email@gmail.com |
+| `RECIPIENT_EMAIL` | your.email@gmail.com, friend@example.com |
 | `SMTP_EMAIL` | your.email@gmail.com |
 | `SMTP_PASSWORD` | your-app-password |
 | `NEWS_API_KEY` | your-newsapi-key |
+
+**Note**: To send to multiple people, just separate emails with commas in `RECIPIENT_EMAIL`.
 
 ### Step 3: Done!
 

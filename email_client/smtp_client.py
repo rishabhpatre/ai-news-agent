@@ -95,13 +95,21 @@ class SMTPClient:
             discussions=discussions,
         )
         
+        # Handle multiple recipients
+        if ',' in to_email:
+            recipients = [e.strip() for e in to_email.split(',')]
+            to_header = ', '.join(recipients)
+        else:
+            recipients = [to_email]
+            to_header = to_email
+        
         # Create email message
         subject = f"🤖 AI Daily Digest - {datetime.now().strftime('%B %d, %Y')}"
         
         message = MIMEMultipart('alternative')
         message['Subject'] = subject
         message['From'] = self.email
-        message['To'] = to_email
+        message['To'] = to_header
         
         # Plain text fallback
         plain_text = self._create_plain_text(papers, news, discussions)
@@ -114,7 +122,7 @@ class SMTPClient:
             print(f"\n{'='*60}")
             print(f"DRY RUN - Email Preview")
             print(f"{'='*60}")
-            print(f"To: {to_email}")
+            print(f"To: {to_header}")
             print(f"Subject: {subject}")
             print(f"{'='*60}")
             print(plain_text)
@@ -128,7 +136,7 @@ class SMTPClient:
                 server.login(self.email, self.password)
                 server.send_message(message)
             
-            print(f"✅ Digest sent to {to_email}")
+            print(f"✅ Digest sent to {len(recipients)} recipient(s): {to_header}")
             return True
             
         except smtplib.SMTPAuthenticationError as e:
