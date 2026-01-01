@@ -1,0 +1,301 @@
+
+============================================================
+🤖 AI News Agent - 2026-01-02 02:51
+============================================================
+
+📡 Collecting content from sources (Lookback: 2 days standard, 7 days for tools/video)...
+  • ArXiv papers...
+    Found 30 papers
+  • News articles...
+    Found 20 from NewsAPI
+  • RSS feeds...
+    Found 5 articles
+  • Hugging Face feeds...
+    Found 30 articles
+  • Reddit...
+    Found 180 posts
+  • YouTube...
+    Found 13 videos
+  • Product Hunt...
+    Found 3 tools
+  • Hacker News discussions...
+    Found 7 discussions
+
+🔧 Processing content...
+  • Deduplicating papers...
+    30 → 10
+  • Deduplicating headlines...
+    20 → 10
+  • Deduplicating RSS feeds...
+    5 → 5
+  • Deduplicating Reddit...
+    180 → 5
+  • Deduplicating Videos...
+    13 → 10
+  • Deduplicating Tools...
+    3 → 3
+  • Deduplicating discussions...
+    7 → 5
+  • Deduplicating Hugging Face...
+    30 → 10
+
+📧 Previewing digest with 58 items...
+
+============================================================
+DRY RUN - Email Preview
+============================================================
+To: rishabhbpatre@gmail.com
+Subject: 🤖 AI Daily Digest - January 02, 2026
+============================================================
+🤖 AI Daily Digest - January 02, 2026
+==================================================
+
+🌐 COMMUNITY UPDATES
+------------------------------
+• AI Labor Is Boring. AI Lust Is Big Business (Wired AI)
+  After years of hype about generative AI increasing productivity and making lives easier, 2025 was the year erotic chatbots defined AI’s narrative.
+  https://www.wired.com/story/expired-tired-wired-sexy-chatbots/
+
+• AI-Powered Dating Is All Hype. IRL Cruising Is the Future (Wired AI)
+  Dating apps and AI companies have been touting bot wingmen for months. But the future might just be good old-fashioned meet-cutes.
+  https://www.wired.com/story/expired-tired-wired-ai-powered-dating/
+
+• European banks plan to cut 200,000 jobs as AI takes hold (TechCrunch AI)
+  The bloodletting will hit hardest in back-office operations, risk management, and compliance.
+  https://techcrunch.com/2026/01/01/european-banks-plan-to-cut-200000-jobs-as-ai-takes-hold/
+
+• ‘College dropout’ has become the most coveted startup founder credential (TechCrunch AI)
+  AI founders are increasingly using their "dropout" status as a credential during YC pitches.
+  https://techcrunch.com/2025/12/31/college-dropout-has-become-the-most-coveted-startup-founder-credential/
+
+• Investors predict AI is coming for labor in 2026 (TechCrunch AI)
+  The exact impact AI will have on the enterprise labor market is unclear but investors predict trends will start to emerge in 2026.
+  https://techcrunch.com/2025/12/31/investors-predict-ai-is-coming-for-labor-in-2026/
+
+📄 RESEARCH PAPERS
+------------------------------
+• Context-aware LLM-based AI Agents for Human-centered Energy Management Systems in Smart Buildings
+  This study presents a conceptual framework and a prototype assessment for Large Language Model (LLM)-based Building Energy Management System (BEMS) AI agents to facilitate context-aware energy management in smart buildings through natural language interaction. The proposed framework comprises three modules: perception (sensing), central control (brain), and action (actuation and user interaction), forming a closed feedback loop that captures, analyzes, and interprets energy data to respond in...
+  http://arxiv.org/abs/2512.25055v1
+
+• CPJ: Explainable Agricultural Pest Diagnosis via Caption-Prompt-Judge with LLM-Judged Refinement
+  Accurate and interpretable crop disease diagnosis is essential for agricultural decision-making, yet existing methods often rely on costly supervised fine-tuning and perform poorly under domain shifts. We propose Caption--Prompt--Judge (CPJ), a training-free few-shot framework that enhances Agri-Pest VQA through structured, interpretable image captions. CPJ employs large vision-language models to generate multi-angle captions, refined iteratively via an LLM-as-Judge module, which then inform ...
+  http://arxiv.org/abs/2512.24947v1
+
+• RAIR: A Rule-Aware Benchmark Uniting Challenging Long-Tail and Visual Salience Subset for E-commerce Relevance Assessment
+  Search relevance plays a central role in web e-commerce. While large language models (LLMs) have shown significant results on relevance task, existing benchmarks lack sufficient complexity for comprehensive model assessment, resulting in an absence of standardized relevance evaluation metrics across the industry. To address this limitation, we propose Rule-Aware benchmark with Image for Relevance assessment(RAIR), a Chinese dataset derived from real-world scenarios. RAIR established a standar...
+  http://arxiv.org/abs/2512.24943v1
+
+• AMAP Agentic Planning Technical Report
+  We present STAgent, an agentic large language model tailored for spatio-temporal understanding, designed to solve complex tasks such as constrained point-of-interest discovery and itinerary planning. STAgent is a specialized model capable of interacting with ten distinct tools within spatio-temporal scenarios, enabling it to explore, verify, and refine intermediate steps during complex reasoning. Notably, STAgent effectively preserves its general capabilities. We empower STAgent with these ca...
+  http://arxiv.org/abs/2512.24957v1
+
+• MAMA-Memeia! Multi-Aspect Multi-Agent Collaboration for Depressive Symptoms Identification in Memes
+  Over the past years, memes have evolved from being exclusively a medium of humorous exchanges to one that allows users to express a range of emotions freely and easily. With the ever-growing utilization of memes in expressing depressive sentiments, we conduct a study on identifying depressive symptoms exhibited by memes shared by users of online social media platforms. We introduce RESTOREx as a vital resource for detecting depressive symptoms in memes on social media through the Large Langua...
+  http://arxiv.org/abs/2512.25015v1
+
+• Efficiently Estimating Data Efficiency for Language Model Fine-tuning
+  While large language models (LLMs) demonstrate reasonable zero-shot capability across many downstream tasks, fine-tuning is a common practice to improve their performance. However, a task's data efficiency--i.e., the number of fine-tuning examples needed to achieve a desired level of performance--is often unknown, resulting in costly cycles of incremental annotation and retraining. Indeed, we demonstrate across a curated set of 30 specialized tasks that performant LLMs may struggle zero-shot ...
+  http://arxiv.org/abs/2512.24991v1
+
+• Adaptive Dependency-aware Prompt Optimization Framework for Multi-Step LLM Pipeline
+  Multi-step LLM pipelines invoke large language models multiple times in a structured sequence and can effectively solve complex tasks, but their performance heavily depends on the prompts used at each step. Jointly optimizing these prompts is difficult due to missing step-level supervision and inter-step dependencies. Existing end-to-end prompt optimization methods struggle under these conditions and often yield suboptimal or unstable updates. We propose ADOPT, an Adaptive Dependency-aware Pr...
+  http://arxiv.org/abs/2512.24933v1
+
+• Vulcan: Instance-Optimal Systems Heuristics Through LLM-Driven Search
+  Resource-management tasks in modern operating and distributed systems continue to rely primarily on hand-designed heuristics for tasks such as scheduling, caching, or active queue management. Designing performant heuristics is an expensive, time-consuming process that we are forced to continuously go through due to the constant flux of hardware, workloads and environments. We propose a new alternative: synthesizing instance-optimal heuristics -- specialized for the exact workloads and hardwar...
+  http://arxiv.org/abs/2512.25065v1
+
+• Many Minds from One Model: Bayesian Transformers for Population Intelligence
+  Despite their scale and success, modern transformers are almost universally trained as single-minded systems: optimization produces one deterministic set of parameters, representing a single functional hypothesis about the data. Motivated by the idea that intelligence emerge from many minds, we propose Population Bayesian Transformers (B-Trans), which transform a standard Large Language Model into a Bayesian Transformer model to supports sampling diverse yet coherent model instances from a si...
+  http://arxiv.org/abs/2512.25063v1
+
+• Modeling Language as a Sequence of Thoughts
+  Transformer language models can generate strikingly natural text by modeling language as a sequence of tokens. Yet, by relying primarily on surface-level co-occurrence statistics, they fail to form globally consistent latent representations of entities and events, lack of which contributes to brittleness in relational direction (e.g., reversal curse), contextualization errors, and data inefficiency. On the other hand, cognitive science shows that human comprehension involves converting the in...
+  http://arxiv.org/abs/2512.25026v1
+
+📰 GLOBAL HEADLINES
+------------------------------
+• Google AI Giving Wrong Information On US EV Tax Credit (CleanTechnica)
+  If you’ve used AI from Google, ChatGPT, or elsewhere to try to get answers to a variety of queries, you’ve probably noticed some odd and incorrect information some of the time. Part of the problem with this, to me, is that the answers are provided in an autho…
+  https://cleantechnica.com/2025/12/31/google-ai-giving-wrong-information-on-us-ev-tax-credit/
+
+• nanocoder 0.2.4 (Pypi.org)
+  A multi-provider coding agent with Textual TUI (supports Gemini, OpenAI, Anthropic)
+  https://pypi.org/project/nanocoder/0.2.4/
+
+• Show HN: A Prompt-Injection Firewall for AI Agents and RAG Pipelines (Hacker News)
+  We built SafeBrowse — an open-source prompt-injection firewall for AI systems.Instead of relying on better prompts, SafeBrowse enforces a hard security boundary between untrusted web content and LLMs.It blocks hidden instructions, policy violations, and poiso…
+  https://news.ycombinator.com/item?id=46448314
+
+• PraisonAI 3.0.1 (Pypi.org)
+  PraisonAI is an AI Agents Framework with Self Reflection. PraisonAI application combines PraisonAI Agents, AutoGen, and CrewAI into a low-code solution for building and managing multi-agent LLM systems, focusing on simplicity, customisation, and efficient hum…
+  https://pypi.org/project/praisonai/3.0.1/
+
+• coil-python 0.1.9 (Pypi.org)
+  COIL – Compact Object Intermediate Language for LLM-efficient data encoding
+  https://pypi.org/project/coil-python/0.1.9/
+
+• Everything Apple Is Releasing in 2026: iPhone Fold, LLM Siri, Low-Cost MacBook and More (MacRumors)
+  If rumors are accurate, 2026 is going to be a huge year for Apple. We're expecting the first foldable iPhone, an all-new home hub device, updated displays, and possibly, the first OLED MacBook Pro and the first AI smart glasses.
+
+
+
+
+Subscribe to the MacRumor…
+  https://www.macrumors.com/guide/what-to-expect-from-apple-2026/
+
+• siili-ai-sdk 0.6.1 (Pypi.org)
+  Python SDK for building AI agents with multi-LLM support, streaming, and production-ready infrastructure
+  https://pypi.org/project/siili-ai-sdk/0.6.1/
+
+• datex-studio-cli added to PyPI (Pypi.org)
+  CLI for Datex Studio low-code platform, designed for LLM-based AI agents
+  https://pypi.org/project/datex-studio-cli/
+
+• datex-studio-cli 0.1.0 (Pypi.org)
+  CLI for Datex Studio low-code platform, designed for LLM-based AI agents
+  https://pypi.org/project/datex-studio-cli/0.1.0/
+
+• coil-python added to PyPI (Pypi.org)
+  COIL – Compact Object Intermediate Language for LLM-efficient data encoding
+  https://pypi.org/project/coil-python/
+
+👽 REDDIT DISCUSSIONS
+------------------------------
+• Does anyone else struggle to find that "one specific chat" from 3 weeks ago? I built a fix. (r/ClaudeAI)
+  Hey everyone, I’ve been using LLMs for almost everything lately—coding, research, and planning. But my sidebar in ChatGPT and Claude has become a total graveyard of &quot;New Chat&quot; titles and buried links. I kept losing track of which chat belonged to which project. I couldn’t find a simple way to organize these, so I built ChatCrumbs. It’s a Chrome extension that lets you: Organize: Group...
+  https://www.reddit.com/r/ClaudeAI/comments/1q19i04/does_anyone_else_struggle_to_find_that_one/
+
+• support for youtu-vl model has been merged into llama.cpp (r/LocalLLaMA)
+  Youtu-LLM is a new, small, yet powerful LLM, contains only 1.96B parameters, supports 128k long context, and has native agentic talents. On general evaluations, Youtu-LLM significantly outperforms SOTA LLMs of similar size in terms of Commonsense, STEM, Coding and Long Context capabilities; in agent-related testing, Youtu-LLM surpasses larger-sized leaders and is truly capable of completing mul...
+  https://www.reddit.com/r/LocalLLaMA/comments/1q1bvbc/support_for_youtuvl_model_has_been_merged_into/
+
+• People always like to shit on AI and taking advice on the internet but you know the ironic part is some of the best advices I ever had in my life came from chatgpt and advices on reddit (r/ChatGPT)
+  I’m not joking, and I’m sure a lot of people can relate to me as well. I had some of the best advice that I still apply from AI (Gemini, ChatGPT, DeepSeek, Claude—I use all) and Reddit posts like r/AskReddit, r/mentalhealth, or comments like ‘Don’t take criticism from people you wouldn’t take advice from’ and ‘You can be the sweetest peach, and not everyone likes peaches.’ There are also life-s...
+  https://www.reddit.com/r/ChatGPT/comments/1q14ldh/people_always_like_to_shit_on_ai_and_taking/
+
+• I built an entire automated video generation pipeline using Claude Code in 3 days over the holidays!! (r/ClaudeAI)
+  I was researching and learning about LLM inference optimizations last week, and thought it would be cool to turn the learnings to a short video explainer. I have zero experience in video creation. I thought I'll see if I can build a system (I am a professional software engineer) using Claude Code to automatically generate video explainers from a source topic. I honestly did not think I would be...
+  https://www.reddit.com/r/ClaudeAI/comments/1q1cexp/i_built_an_entire_automated_video_generation/
+
+• Has anyone noticed a significant drop in Anthropic (Claude) quality over the past couple of weeks? (r/artificial)
+  Over the past two weeks, I’ve been experiencing something unusual with Anthropic’s models, particularly Claude. Tasks that were previously handled in a precise, intelligent, and consistent manner are now being executed at a noticeably lower level — shallow responses, logical errors, and a lack of basic contextual understanding. These are the exact same tasks, using the same prompts, that worked...
+  https://www.reddit.com/r/artificial/comments/1q18wg2/has_anyone_noticed_a_significant_drop_in/
+
+🤗 HUGGING FACE HUB
+------------------------------
+• Wan-AI/Wan2.1-I2V-14B-480P
+  https://huggingface.co/Wan-AI/Wan2.1-I2V-14B-480P
+
+• convergence-ai/proxy-lite-3b
+  https://huggingface.co/convergence-ai/proxy-lite-3b
+
+• unsloth/DeepSeek-R1-GGUF
+  https://huggingface.co/unsloth/DeepSeek-R1-GGUF
+
+• Comfy-Org/Wan_2.1_ComfyUI_repackaged
+  https://huggingface.co/Comfy-Org/Wan_2.1_ComfyUI_repackaged
+
+• perplexity-ai/r1-1776-distill-llama-70b
+  https://huggingface.co/perplexity-ai/r1-1776-distill-llama-70b
+
+• deepseek-ai/Janus-Pro-7B
+  https://huggingface.co/deepseek-ai/Janus-Pro-7B
+
+• Skywork/SkyReels-V1-Hunyuan-I2V
+  https://huggingface.co/Skywork/SkyReels-V1-Hunyuan-I2V
+
+• Qwen/Qwen2.5-VL-7B-Instruct
+  https://huggingface.co/Qwen/Qwen2.5-VL-7B-Instruct
+
+• homebrewltd/AlphaMaze-v0.2-1.5B
+  https://huggingface.co/homebrewltd/AlphaMaze-v0.2-1.5B
+
+• stepfun-ai/Step-Audio-Chat
+  https://huggingface.co/stepfun-ai/Step-Audio-Chat
+
+📺 WATCH LIST
+------------------------------
+• NVIDIA's $20 BILLION Monopoly Move + China's FREE GPT-5 Killers | 10 AI Updates (Vaibhav Sisinty)
+  🔗 Join our WhatsApp Community Get the latest AI updates, tips, and insights straight to your inbox: https://dub.sh/ai-updates-vs NVIDIA just dropped $20 billion on their largest acquisition ever—a strategic kill shot to eliminate their next big threat. China released two AI models this week that are beating Claude and Gemini, both completely free and open-source. Palmer Luckey demoed a military...
+  https://www.youtube.com/watch?v=soltxcaXcQM
+
+• How to Use Notebooklm Better than 99% of People (Parker Prompts)
+  How to Use Notebooklm better than 99% of people (Notebooklm Tutorial) Most users treat NotebookLM like a basic chatbot, but it’s really a research intelligence system for autonomous sourcing, validation, and instant content generation (slides/infographics). You can create topic-specific notebooks and use Deep Research for agentic source discovery that finds 50 sources, generates a research repo...
+  https://www.youtube.com/watch?v=SogSf-1p9t4
+
+• Hire Ai Agents, Not People. (Vaibhav Sisinty)
+  🔗 Join our WhatsApp Community Get the latest AI updates, tips, and insights straight to your inbox: https://dub.sh/ai-updates-vs -------- To Know More, Follow Vaibhav Sisinty On ⤵︎ Instagram @VaibhavSisinty https://www.instagram.com/vaibhavsisinty Twitter @VaibhavSisinty https://twitter.com/VaibhavSisinty Facebook @VaibhavSisinty https://www.facebook.com/vaibhavsisinty/ LinkedIn - Vaibhav Sisin...
+  https://www.youtube.com/shorts/vhwOJkBSip8
+
+• I Tried Google's 7 FREE AI Tools (Destroys All Paid Alternatives) (Parker Prompts)
+  7 Google AI Tools that are FREE, But Shouldn't Be.. In this video I cover my favorite free ai tools made by Google and How I use them! 1. AI Studio Build (inside Google AI Studio) 2. Opal 3. NotebookLM (specifically the Video Overview feature) 4. Pomelli (Google Labs) 5. Gemini Canvas (inside Gemini → Tools → Canvas) 6. Nano Banana Pro (Gemini’s image generation model, inside Gemini → Tools → C...
+  https://www.youtube.com/watch?v=gXm4Rp6gjEU
+
+• OpenAI's Secret 2030 Plan Will END Human Research Forever (Vaibhav Sisinty)
+  🔗 Join our WhatsApp Community – Get the latest AI updates, tips, and insights straight to your inbox https://dub.sh/ai-updates-vs Sam Altman just revealed OpenAI's internal target: an automated AI researcher by March 2028. This isn't a prediction, it's a deadline. And nobody's paying attention to what happens after. I spent weeks analyzing every major AI CEO statement, leaked timelines, and cut...
+  https://www.youtube.com/watch?v=lBCDrHVHKJ0
+
+• We Just Turned Down Millions of Dollars. Here Is Why. (Two Minute Papers)
+  Yup. My free course on how to write a light simulation program (ray tracing): https://users.cg.tuwien.ac.at/zsolnai/gfx/rendering-course/ As a thank you for being with us for 1,000 episodes, here is my first ever interview with a Nobel Prize winning chemist: https://www.youtube.com/watch?v=Vhcwjzeukts 🙏 We would like to thank our generous Patreon supporters who make Two Minute Papers possible: ...
+  https://www.youtube.com/watch?v=SWGBN1KvG6c
+
+• The Bug That Ruined Game Physics For Decades (Two Minute Papers)
+  ❤️ Check out Lambda here and sign up for their GPU Cloud: https://lambda.ai/papers Using DeepSeek on Lambda: https://lambda.ai/inference-models/deepseek-r1 📝 The paper "A Stream Function Solver for Liquid Simulations" is available here: https://pub.ista.ac.at/group_wojtan/projects/2015_Ando_ASFSfLS/download/vecpotential.pdf 📝 My paper on simulations that look almost like reality is available fo...
+  https://www.youtube.com/watch?v=wp8d24NkOjI
+
+• Infinity, Paradoxes, Gödel Incompleteness & the Mathematical Multiverse | Lex Fridman Podcast #488 (Lex Fridman)
+  Joel David Hamkins is a mathematician and philosopher specializing in set theory, the foundations of mathematics, and the nature of infinity, and he's the #1 highest-rated user on MathOverflow. He is also the author of several books, including Proof and the Art of Mathematics and Lectures on the Philosophy of Mathematics. And he has a great blog called Infinitely More. Thank you for listening ❤...
+  https://www.youtube.com/watch?v=14OPT6CcsH4
+
+• The End of Cold Calling? 🤖 (Vaibhav Sisinty)
+  🔗 Join our WhatsApp Community Get the latest AI updates, tips, and insights straight to your inbox: https://dub.sh/ai-updates-vs -------- To Know More, Follow Vaibhav Sisinty On ⤵︎ Instagram @VaibhavSisinty https://www.instagram.com/vaibhavsisinty Twitter @VaibhavSisinty https://twitter.com/VaibhavSisinty Facebook @VaibhavSisinty https://www.facebook.com/vaibhavsisinty/ LinkedIn - Vaibhav Sisin...
+  https://www.youtube.com/shorts/hDDUHsnWdzU
+
+• Is Your Job Safe from AI? (Vaibhav Sisinty)
+  🔗 Join our WhatsApp Community Get the latest AI updates, tips, and insights straight to your inbox: https://dub.sh/ai-updates-vs -------- To Know More, Follow Vaibhav Sisinty On ⤵︎ Instagram @VaibhavSisinty https://www.instagram.com/vaibhavsisinty Twitter @VaibhavSisinty https://twitter.com/VaibhavSisinty Facebook @VaibhavSisinty https://www.facebook.com/vaibhavsisinty/ LinkedIn - Vaibhav Sisin...
+  https://www.youtube.com/shorts/9I5K8LasZ2c
+
+🚀 NEW TOOLS (Product Hunt)
+------------------------------
+• Plannotator
+  Annotate, review, and share Claude Code plans. (Plugin/Hook) Discussion | Link
+  https://www.producthunt.com/products/plannotator
+
+• Inspiration by Mind Dock
+  Live AI trends from HuggingFace, ArXiv, GitHub, and more Discussion | Link
+  https://www.producthunt.com/products/product-hunt-launch-kit-for-ai-data-map
+
+• Optivault
+  AI financial advisor that optimizes your money and budget. Discussion | Link
+  https://www.producthunt.com/products/optivault-ai-financial-advisor-app
+
+🔥 HACKER NEWS
+------------------------------
+• Show HN: Use Claude Code to Query 600 GB Indexes over Hacker News, ArXiv, etc.
+  Score: 364 points | 131 comments
+  https://exopriors.com/scry
+
+• Claude wrote a functional NES emulator using my engine's API
+  Score: 87 points | 91 comments
+  https://carimbo.games/games/nintendo/
+
+• Court report detailing ChatGPT's involvement with a recent murder suicide [pdf]
+  Score: 145 points | 131 comments
+  https://storage.courtlistener.com/recap/gov.uscourts.cand.461878/gov.uscourts.cand.461878.1.0.pdf
+
+• Building an internal agent: Code-driven vs. LLM-driven workflows
+  Score: 33 points | 5 comments
+  https://lethain.com/agents-coordinators/
+
+• How AI labs are solving the power problem
+  Score: 155 points | 245 comments
+  https://newsletter.semianalysis.com/p/how-ai-labs-are-solving-the-power
+
+==================================================
+Powered by AI News Agent
+============================================================
+
+
+✅ Digest previewed successfully!

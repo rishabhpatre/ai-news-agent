@@ -237,17 +237,17 @@ class AINewsAgent:
         hf_news = hf_news[:settings.max_news]
         print(f"    {len(content['hf_news'])} → {len(hf_news)}")
         
-        # Generate summaries if LLM is available
-        if self.summarizer.has_llm:
-            print("  • Generating AI summaries...")
-            papers = self.summarizer.summarize_batch(papers)
-            news_api = self.summarizer.summarize_batch(news_api)
-            rss_news = self.summarizer.summarize_batch(rss_news)
-            hf_news = self.summarizer.summarize_batch(hf_news)
-            reddit_posts = self.summarizer.summarize_batch(reddit_posts)
-            videos = self.summarizer.summarize_batch(videos)
-            discussions = self.summarizer.summarize_batch(discussions)
-            tools = self.summarizer.summarize_batch(tools)
+        # Generate summaries if LLM is available (DISABLED - Bottleneck)
+        # if self.summarizer.has_llm:
+        #     print("  • Generating AI summaries...")
+        #     papers = self.summarizer.summarize_batch(papers)
+        #     news_api = self.summarizer.summarize_batch(news_api)
+        #     rss_news = self.summarizer.summarize_batch(rss_news)
+        #     hf_news = self.summarizer.summarize_batch(hf_news)
+        #     reddit_posts = self.summarizer.summarize_batch(reddit_posts)
+        #     videos = self.summarizer.summarize_batch(videos)
+        #     discussions = self.summarizer.summarize_batch(discussions)
+        #     tools = self.summarizer.summarize_batch(tools)
         
         return {
             'papers': papers,
