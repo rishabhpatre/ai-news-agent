@@ -35,12 +35,13 @@ class RSSSource:
             'deep learning', 'neural network', 'transformer', 'ai agent',
         ]
     
-    def fetch(self, days_back: int = 1) -> List[Article]:
+    def fetch(self, days_back: int = 1, check_relevance: bool = True) -> List[Article]:
         """
         Fetch recent articles from RSS feeds.
         
         Args:
             days_back: Number of days to look back.
+            check_relevance: Whether to filter articles by AI keywords.
             
         Returns:
             List of Article objects.
@@ -66,7 +67,7 @@ class RSSSource:
                     # Check relevance (skip non-AI articles from general feeds)
                     title = entry.get('title', '')
                     summary = self._get_summary(entry)
-                    if not self._is_relevant(title, summary):
+                    if check_relevance and not self._is_relevant(title, summary):
                         continue
                     
                     article = Article(
