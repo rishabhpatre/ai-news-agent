@@ -77,6 +77,7 @@ class RSSSource:
                         published=published or datetime.now(),
                         summary=summary,
                         authors=self._get_authors(entry),
+                        thumbnail=self._get_thumbnail(entry),
                         score=self._calculate_relevance(title, summary),
                     )
                     articles.append(article)
@@ -142,6 +143,26 @@ class RSSSource:
                     authors.append(name)
         
         return authors
+    
+    def _get_thumbnail(self, entry) -> str:
+        """Extract thumbnail URL from RSS entry."""
+        # Check media_thumbnail (YouTube often uses this)
+        if hasattr(entry, 'media_thumbnail') and entry.media_thumbnail:
+            return entry.media_thumbnail[0]['url']
+            
+        # Check media_content
+        if hasattr(entry, 'media_content'):
+            for media in entry.media_content:
+                if media.get('medium') == 'image' or media.get('type', '').startswith('image/'):
+                    return media['url']
+                    
+        # Check links for enclosures/images
+        if hasattr(entry, 'links'):
+            for link in entry.links:
+                if link.get('rel') == 'enclosure' and link.get('type', '').startswith('image/'):
+                    return link['href']
+                    
+        return None
     
     def _is_relevant(self, title: str, summary: str) -> bool:
         """Check if an article is relevant to AI/ML using word boundaries."""

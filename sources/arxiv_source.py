@@ -20,6 +20,7 @@ class Article:
     summary: str = ""
     authors: List[str] = None
     categories: List[str] = None
+    thumbnail: str = None
     score: float = 0.0  # Relevance score
     
     def __post_init__(self):
@@ -36,7 +37,9 @@ class Article:
             'published': self.published.isoformat() if self.published else None,
             'summary': self.summary,
             'authors': self.authors,
+            'authors': self.authors,
             'categories': self.categories,
+            'thumbnail': self.thumbnail,
             'score': self.score,
         }
 
