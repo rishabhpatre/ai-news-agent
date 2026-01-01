@@ -248,6 +248,14 @@ class SMTPClient:
             "",
         ]
         
+        if rss_news:
+            lines.append("🌐 COMMUNITY UPDATES")
+            lines.append("-" * 30)
+            for n in rss_news[:10]:
+                lines.append(f"• {n.title} ({n.source})")
+                lines.append(f"  {n.url}")
+                lines.append("")
+
         if papers:
             lines.append("📄 RESEARCH PAPERS")
             lines.append("-" * 30)
@@ -263,15 +271,15 @@ class SMTPClient:
                 lines.append(f"• {n.title} ({n.source})")
                 lines.append(f"  {n.url}")
                 lines.append("")
-                
-        if rss_news:
-            lines.append("🌐 COMMUNITY UPDATES")
-            lines.append("-" * 30)
-            for n in rss_news[:10]:
-                lines.append(f"• {n.title} ({n.source})")
-                lines.append(f"  {n.url}")
-                lines.append("")
 
+        if reddit_posts:
+            lines.append("👽 REDDIT DISCUSSIONS")
+            lines.append("-" * 30)
+            for r in reddit_posts[:5]:
+                lines.append(f"• {r.title} ({r.source})")
+                lines.append(f"  {r.url}")
+                lines.append("")
+        
         if videos:
             lines.append("📺 WATCH LIST")
             lines.append("-" * 30)
@@ -286,14 +294,6 @@ class SMTPClient:
             for t in tools[:5]:
                 lines.append(f"• {t.title}")
                 lines.append(f"  {t.url}")
-                lines.append("")
-
-        if reddit_posts:
-            lines.append("👽 REDDIT DISCUSSIONS")
-            lines.append("-" * 30)
-            for r in reddit_posts[:5]:
-                lines.append(f"• {r.title} ({r.source})")
-                lines.append(f"  {r.url}")
                 lines.append("")
         
         if discussions:
