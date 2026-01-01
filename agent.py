@@ -102,8 +102,8 @@ class AINewsAgent:
         print(f"    Found {len(news_api)} from NewsAPI")
         
         # === SLOW NEWS SOURCES (Blogs, Reddit, YouTube) ===
-        # These don't post daily, so we look back 3 days to avoid "empty" sections
-        extended_days = max(3, days_back)
+        # These don't post daily, so we look back 7 days to avoid "empty" sections
+        extended_days = max(7, days_back)
         
         # 3. RSS Feeds (Blogs)
         print("  • RSS feeds...")
@@ -113,7 +113,7 @@ class AINewsAgent:
         # 3b. Hugging Face (Isolated)
         print("  • Hugging Face feeds...")
         hf_source = RSSSource(settings.hf_feeds)
-        hf_news = hf_source.fetch(days_back=days_back)
+        hf_news = hf_source.fetch(days_back=days_back, check_relevance=False)
         print(f"    Found {len(hf_news)} articles")
         
         # 4. Reddit (Via RSS)
@@ -139,8 +139,8 @@ class AINewsAgent:
             try:
                 # RSSSource expects list of dicts
                 v_source = RSSSource([feed]) 
-                # Fetch videos (treat as articles but we'll categorize them)
-                v_items = v_source.fetch(days_back=extended_days)
+                # Fetch videos (bypass relevance check for curated channels)
+                v_items = v_source.fetch(days_back=extended_days, check_relevance=False)
                 # Add channel name to source (redundant if RSSSource does it, but safe)
                 for v in v_items:
                     v.source = feed['name']
@@ -216,7 +216,7 @@ class AINewsAgent:
         # Deduplicate Videos
         print("  • Deduplicating Videos...")
         videos = self.deduplicator.deduplicate_all(content['videos'])
-        videos = videos[:3] 
+        videos = videos[:10] 
         print(f"    {len(content['videos'])} → {len(videos)}")
         
         # Deduplicate Tools
