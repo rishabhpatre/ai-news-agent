@@ -39,6 +39,27 @@
                         </td>
                     </tr>
 
+                    <!-- Table of Contents -->
+                    <tr>
+                        <td style="padding: 0 24px 24px 24px; text-align: center;">
+                            <p style="margin: 0; font-size: 13px; color: #666;">
+                                Jump to:
+                                {% if papers %}<a href="#papers"
+                                    style="color: #a78bfa; text-decoration: none; margin: 0 4px;">Papers</a> •{% endif
+                                %}
+                                {% if rss_news %}<a href="#community"
+                                    style="color: #a78bfa; text-decoration: none; margin: 0 4px;">Community</a> •{%
+                                endif %}
+                                {% if news_api %}<a href="#headlines"
+                                    style="color: #a78bfa; text-decoration: none; margin: 0 4px;">Headlines</a> •{%
+                                endif %}
+                                {% if videos %}<a href="#watch"
+                                    style="color: #a78bfa; text-decoration: none; margin: 0 4px;">Watch List</a>{% endif
+                                %}
+                            </p>
+                        </td>
+                    </tr>
+
                     <!-- Research Papers Section -->
                     {% if papers %}
                     <tr>
@@ -46,7 +67,8 @@
                             <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                                 <tr>
                                     <td style="padding-bottom: 16px;">
-                                        <h2 style="margin: 0; color: #f0f0f0; font-size: 18px; font-weight: 600;">
+                                        <h2 id="papers"
+                                            style="margin: 0; color: #f0f0f0; font-size: 18px; font-weight: 600;">
                                             📄 Research Papers
                                         </h2>
                                         <div
@@ -54,7 +76,7 @@
                                         </div>
                                     </td>
                                 </tr>
-                                {% for paper in papers[:10] %}
+                                {% for paper in papers[:5] %}
                                 <tr>
                                     <td style="padding: 12px 0; border-bottom: 1px solid #2a2a2a;">
                                         <a href="{{ paper.url }}"
@@ -76,6 +98,28 @@
                                     </td>
                                 </tr>
                                 {% endfor %}
+
+                                <!-- Compact List for Remaining Papers -->
+                                {% if papers|length > 5 %}
+                                <tr>
+                                    <td style="padding-top: 16px;">
+                                        <p
+                                            style="margin: 0 0 8px 0; font-size: 12px; font-weight: 600; color: #666; text-transform: uppercase; letter-spacing: 0.5px;">
+                                            More Papers
+                                        </p>
+                                    </td>
+                                </tr>
+                                {% for paper in papers[5:] %}
+                                <tr>
+                                    <td style="padding: 6px 0; border-bottom: 1px dashed #2a2a2a;">
+                                        <a href="{{ paper.url }}"
+                                            style="color: #60a5fa; text-decoration: none; font-size: 13px; line-height: 1.4;">
+                                            {{ paper.title }}
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                                {% endif %}
                             </table>
                         </td>
                     </tr>
@@ -88,7 +132,8 @@
                             <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                                 <tr>
                                     <td style="padding-bottom: 16px;">
-                                        <h2 style="margin: 0; color: #f0f0f0; font-size: 18px; font-weight: 600;">
+                                        <h2 id="community"
+                                            style="margin: 0; color: #f0f0f0; font-size: 18px; font-weight: 600;">
                                             🌐 Community Updates
                                         </h2>
                                         <div
@@ -96,7 +141,7 @@
                                         </div>
                                     </td>
                                 </tr>
-                                {% for article in rss_news[:10] %}
+                                {% for article in rss_news[:5] %}
                                 <tr>
                                     <td style="padding: 12px 0; border-bottom: 1px solid #2a2a2a;">
                                         <a href="{{ article.url }}"
@@ -118,6 +163,30 @@
                                     </td>
                                 </tr>
                                 {% endfor %}
+
+                                <!-- Compact List for Remaining RSS -->
+                                {% if rss_news|length > 5 %}
+                                <tr>
+                                    <td style="padding-top: 16px;">
+                                        <p
+                                            style="margin: 0 0 8px 0; font-size: 12px; font-weight: 600; color: #666; text-transform: uppercase; letter-spacing: 0.5px;">
+                                            More Updates
+                                        </p>
+                                    </td>
+                                </tr>
+                                {% for article in rss_news[5:] %}
+                                <tr>
+                                    <td style="padding: 6px 0; border-bottom: 1px dashed #2a2a2a;">
+                                        <a href="{{ article.url }}"
+                                            style="color: #a78bfa; text-decoration: none; font-size: 13px; line-height: 1.4;">
+                                            {{ article.title }}
+                                        </a>
+                                        <span style="color: #555; font-size: 11px; margin-left: 6px;">{{ article.source
+                                            }}</span>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                                {% endif %}
                             </table>
                         </td>
                     </tr>
@@ -131,7 +200,8 @@
                             <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                                 <tr>
                                     <td style="padding-bottom: 16px;">
-                                        <h2 style="margin: 0; color: #f0f0f0; font-size: 18px; font-weight: 600;">
+                                        <h2 id="headlines"
+                                            style="margin: 0; color: #f0f0f0; font-size: 18px; font-weight: 600;">
                                             📰 Global Headlines
                                         </h2>
                                         <div
@@ -139,7 +209,7 @@
                                         </div>
                                     </td>
                                 </tr>
-                                {% for article in news_api[:10] %}
+                                {% for article in news_api[:5] %}
                                 <tr>
                                     <td style="padding: 12px 0; border-bottom: 1px solid #2a2a2a;">
                                         <a href="{{ article.url }}"
@@ -161,6 +231,30 @@
                                     </td>
                                 </tr>
                                 {% endfor %}
+
+                                <!-- Compact List for Remaining Headlines -->
+                                {% if news_api|length > 5 %}
+                                <tr>
+                                    <td style="padding-top: 16px;">
+                                        <p
+                                            style="margin: 0 0 8px 0; font-size: 12px; font-weight: 600; color: #666; text-transform: uppercase; letter-spacing: 0.5px;">
+                                            More Headlines
+                                        </p>
+                                    </td>
+                                </tr>
+                                {% for article in news_api[5:] %}
+                                <tr>
+                                    <td style="padding: 6px 0; border-bottom: 1px dashed #2a2a2a;">
+                                        <a href="{{ article.url }}"
+                                            style="color: #34d399; text-decoration: none; font-size: 13px; line-height: 1.4;">
+                                            {{ article.title }}
+                                        </a>
+                                        <span style="color: #555; font-size: 11px; margin-left: 6px;">{{ article.source
+                                            }}</span>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                                {% endif %}
                             </table>
                         </td>
                     </tr>
@@ -251,7 +345,8 @@
                             <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                                 <tr>
                                     <td style="padding-bottom: 16px;">
-                                        <h2 style="margin: 0; color: #f0f0f0; font-size: 18px; font-weight: 600;">
+                                        <h2 id="watch"
+                                            style="margin: 0; color: #f0f0f0; font-size: 18px; font-weight: 600;">
                                             📺 Watch List
                                         </h2>
                                         <div
@@ -259,7 +354,7 @@
                                         </div>
                                     </td>
                                 </tr>
-                                {% for video in videos[:10] %}
+                                {% for video in videos[:5] %}
                                 <tr>
                                     <td style="padding: 12px 0; border-bottom: 1px solid #2a2a2a;">
                                         <a href="{{ video.url }}"
@@ -281,6 +376,30 @@
                                     </td>
                                 </tr>
                                 {% endfor %}
+
+                                <!-- Compact List for Remaining Videos -->
+                                {% if videos|length > 5 %}
+                                <tr>
+                                    <td style="padding-top: 16px;">
+                                        <p
+                                            style="margin: 0 0 8px 0; font-size: 12px; font-weight: 600; color: #666; text-transform: uppercase; letter-spacing: 0.5px;">
+                                            More Videos
+                                        </p>
+                                    </td>
+                                </tr>
+                                {% for video in videos[5:] %}
+                                <tr>
+                                    <td style="padding: 6px 0; border-bottom: 1px dashed #2a2a2a;">
+                                        <a href="{{ video.url }}"
+                                            style="color: #f87171; text-decoration: none; font-size: 13px; line-height: 1.4;">
+                                            {{ video.title }}
+                                        </a>
+                                        <span style="color: #555; font-size: 11px; margin-left: 6px;">{{ video.source
+                                            }}</span>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                                {% endif %}
                             </table>
                         </td>
                     </tr>
