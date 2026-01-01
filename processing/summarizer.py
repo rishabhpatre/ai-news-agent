@@ -102,7 +102,9 @@ class Summarizer:
     def _summarize_with_llm(self, article: Article) -> str:
         """Use LLM to generate a structured summary."""
         # Prepare context for LLM
-        context = article.summary if article.summary and len(article.summary) > 20 else article.title
+        # Use existing summary if long enough, else use title
+        raw_summary = article.summary if article.summary else ""
+        context = raw_summary if len(raw_summary) > 20 else article.title
         
         prompt = f"""Title: {article.title}
 Content: {context}
@@ -111,8 +113,6 @@ Generate a high-signal brief for a busy AI professional.
 Focus on the 'why it matters' and 'key takeaways'.
 Use 1-2 bullet points if there are multiple important facts.
 Keep it under {self.max_summary_length} characters.
-
-Content: {article.summary[:1500]}
 
 Summary:"""
         
@@ -138,7 +138,7 @@ Summary:"""
             response = self._gemini_model.generate_content(prompt)
             return response.text.strip()[:self.max_summary_length]
         
-        return article.summary[:self.max_summary_length]
+        return raw_summary[:self.max_summary_length]
     
     def _extractive_summary(self, text: str) -> str:
         """

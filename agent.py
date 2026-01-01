@@ -248,6 +248,7 @@ class AINewsAgent:
             reddit_posts = self.summarizer.summarize_batch(reddit_posts)
             videos = self.summarizer.summarize_batch(videos)
             discussions = self.summarizer.summarize_batch(discussions)
+            tools = self.summarizer.summarize_batch(tools)
         
         return {
             'papers': papers,

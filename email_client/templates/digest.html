@@ -69,9 +69,8 @@
                                         </p>
                                         {% if article.summary %}
                                         <p
-                                            style="margin: 8px 0 0 0; color: #a0a0a0; font-size: 13px; line-height: 1.5;">
-                                            {{ article.summary[:150] }}{% if article.summary|length > 150 %}...{% endif
-                                            %}
+                                            style="margin: 8px 0 0 0; color: #a0a0a0; font-size: 13px; line-height: 1.5; white-space: pre-line;">
+                                            {{ article.summary }}
                                         </p>
                                         {% endif %}
                                     </td>
@@ -314,6 +313,12 @@
                                                 Product Hunt
                                             </span>
                                         </p>
+                                        {% if tool.summary %}
+                                        <p
+                                            style="margin: 8px 0 0 0; color: #a0a0a0; font-size: 13px; line-height: 1.5; white-space: pre-line;">
+                                            {{ tool.summary }}
+                                        </p>
+                                        {% endif %}
                                     </td>
                                 </tr>
                                 {% endfor %}
@@ -344,9 +349,12 @@
                                             style="color: #fbbf24; text-decoration: none; font-size: 15px; font-weight: 500; line-height: 1.4;">
                                             {{ discussion.title }}
                                         </a>
-                                        <p style="margin: 6px 0 0 0; color: #888; font-size: 12px;">
+                                        {% if discussion.summary %}
+                                        <p
+                                            style="margin: 8px 0 0 0; color: #a0a0a0; font-size: 13px; line-height: 1.5; white-space: pre-line;">
                                             {{ discussion.summary }}
                                         </p>
+                                        {% endif %}
                                     </td>
                                 </tr>
                                 {% endfor %}
