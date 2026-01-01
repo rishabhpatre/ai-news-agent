@@ -250,8 +250,8 @@ def main():
     parser.add_argument(
         '--days', '-n',
         type=int,
-        default=1,
-        help='Number of days to look back (default: 1)',
+        default=3,
+        help='Number of days to look back (default: 3)',
     )
     
     args = parser.parse_args()

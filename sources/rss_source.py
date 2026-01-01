@@ -50,7 +50,8 @@ class RSSSource:
         
         for feed_info in self.feeds:
             try:
-                feed = feedparser.parse(feed_info['url'])
+                # Add User-Agent to avoid blocking
+                feed = feedparser.parse(feed_info['url'], agent='Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36')
                 
                 if feed.bozo and not feed.entries:
                     print(f"Warning: Could not parse feed {feed_info['name']}")
@@ -142,9 +143,14 @@ class RSSSource:
         return authors
     
     def _is_relevant(self, title: str, summary: str) -> bool:
-        """Check if an article is relevant to AI/ML."""
+        """Check if an article is relevant to AI/ML using word boundaries."""
         text = (title + ' ' + summary).lower()
-        return any(kw in text for kw in self.keywords)
+        
+        for kw in self.keywords:
+            # Use regex for whole word matching to avoid partial matches (e.g. 'ai' in 'said')
+            if re.search(r'\b' + re.escape(kw.lower()) + r'\b', text):
+                return True
+        return False
     
     def _calculate_relevance(self, title: str, summary: str) -> float:
         """Calculate relevance score based on keyword matches."""

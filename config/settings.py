@@ -46,6 +46,8 @@ class Settings:
     
     # AI Topics to search for
     ai_topics: List[str] = field(default_factory=lambda: [
+        'AI',
+        'ML',
         'large language model',
         'LLM',
         'AI agent',
@@ -77,7 +79,7 @@ class Settings:
         {'name': 'MIT Tech Review AI', 'url': 'https://www.technologyreview.com/topic/artificial-intelligence/feed'},
         {'name': 'The Verge AI', 'url': 'https://www.theverge.com/rss/ai-artificial-intelligence/index.xml'},
         {'name': 'Ars Technica Tech', 'url': 'https://feeds.arstechnica.com/arstechnica/technology-lab'},
-        {'name': 'VentureBeat AI', 'url': 'https://venturebeat.com/category/ai/feed/'},
+        {'name': 'OpenAI Blog', 'url': 'https://openai.com/index/rss.xml'},
         {'name': 'Wired AI', 'url': 'https://www.wired.com/feed/tag/ai/latest/rss'},
         {'name': 'TechCrunch AI', 'url': 'https://techcrunch.com/category/artificial-intelligence/feed/'},
     ])
