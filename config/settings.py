@@ -86,6 +86,10 @@ class Settings:
         {'name': 'AssemblyAI', 'url': 'https://www.youtube.com/feeds/videos.xml?channel_id=UCtatfZMf-8EkIwASXM4ts0A'},
         {'name': 'Lex Fridman', 'url': 'https://www.youtube.com/feeds/videos.xml?channel_id=UCSHZKyawb77ixDdsGog4iWA'},
         {'name': 'Stanford Online', 'url': 'https://www.youtube.com/feeds/videos.xml?channel_id=UCBa5G_ESCn8Yd4vw5U-gIcg'},
+        {'name': 'Parker Prompts', 'url': 'https://www.youtube.com/feeds/videos.xml?channel_id=UCaNk22cLid93kifuVbVapcQ'},
+        {'name': 'Futurepedia', 'url': 'https://www.youtube.com/feeds/videos.xml?channel_id=UC_RovKmk0OCbuZjA8f08opw'},
+        {'name': 'Vaibhav Sisinty', 'url': 'https://www.youtube.com/feeds/videos.xml?channel_id=UClXAalunTPaX1YV185DWUeg'},
+        {'name': 'T3.gg', 'url': 'https://www.youtube.com/feeds/videos.xml?channel_id=UCtuO2h6OwDueF7h3p8DYYjQ'},
     ])
     
     # Product Hunt

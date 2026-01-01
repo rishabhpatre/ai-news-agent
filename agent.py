@@ -86,20 +86,19 @@ class AINewsAgent:
         Returns:
             Dict with 'papers', 'news', and 'discussions' lists.
         """
-        print(f"📡 Collecting content from sources (Lookback: {days_back} days standard, 3 days for tools/video)...")
+        print(f"📡 Collecting content from sources (Lookback: {days_back} days standard, 7 days for tools/video)...")
         
         # 1. ArXiv Papers (High frequency - keep tight)
         print("  • ArXiv papers...")
         papers = self.arxiv_source.fetch(days_back=days_back)
         print(f"    Found {len(papers)} papers")
         
-        # 2. NewsAPI (High frequency - but indexing can be delayed, use 3 days)
+        # 2. NewsAPI (High frequency - but indexing can be delayed, using standard lookback)
         print("  • News articles...")
         news_api = []
         if settings.has_news_api:
-            # Match lookback to slow sources for consistency or at least 3 days
-            news_lookback = max(3, days_back)
-            news_api = self.newsapi_source.fetch(days_back=news_lookback)
+            # Match lookback to standard days_back
+            news_api = self.newsapi_source.fetch(days_back=days_back)
         print(f"    Found {len(news_api)} from NewsAPI")
         
         # === SLOW NEWS SOURCES (Blogs, Reddit, YouTube) ===
@@ -365,8 +364,8 @@ def main():
     parser.add_argument(
         '--days', '-n',
         type=int,
-        default=3,
-        help='Number of days to look back (default: 3)',
+        default=2,
+        help='Number of days to look back (default: 2)',
     )
     
     args = parser.parse_args()
