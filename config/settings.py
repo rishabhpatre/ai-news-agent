@@ -77,9 +77,14 @@ class Settings:
     # RSS Feeds to monitor
     rss_feeds: List[dict] = field(default_factory=lambda: [
         {'name': 'MIT Tech Review AI', 'url': 'https://www.technologyreview.com/topic/artificial-intelligence/feed'},
-        {'name': 'The Verge AI', 'url': 'https://www.theverge.com/rss/ai-artificial-intelligence/index.xml'},
-        {'name': 'Ars Technica Tech', 'url': 'https://feeds.arstechnica.com/arstechnica/technology-lab'},
-        {'name': 'OpenAI Blog', 'url': 'https://openai.com/index/rss.xml'},
+        {'name': 'OpenAI Blog', 'url': 'https://openai.com/blog/rss.xml'},
+        {'name': 'Anthropic Research', 'url': 'https://raw.githubusercontent.com/Olshansk/rss-feeds/main/feeds/feed_anthropic_research.xml'},
+        {'name': 'Hugging Face Blog', 'url': 'https://huggingface.co/blog/feed.xml'},
+        {'name': 'Google DeepMind', 'url': 'https://deepmind.com/blog/feed/basic/'},
+        {'name': 'NVIDIA Developer', 'url': 'https://developer.nvidia.com/blog/feed/'},
+        {'name': 'AWS Machine Learning', 'url': 'http://feeds.feedburner.com/amazon/AWSAI'},
+        {'name': 'Berkeley AI Research', 'url': 'https://bair.berkeley.edu/blog/feed.xml'},
+        {'name': 'Microsoft Research', 'url': 'https://www.microsoft.com/en-us/research/feed/'},
         {'name': 'Wired AI', 'url': 'https://www.wired.com/feed/tag/ai/latest/rss'},
         {'name': 'TechCrunch AI', 'url': 'https://techcrunch.com/category/artificial-intelligence/feed/'},
         {'name': 'BBC News', 'url': 'https://feeds.bbci.co.uk/news/rss.xml'},
