@@ -428,6 +428,29 @@
                                     </td>
                                 </tr>
                                 {% endfor %}
+
+                                <!-- Compact List for Remaining Reddit -->
+                                {% if reddit_posts|length > 5 %}
+                                <tr>
+                                    <td style="padding-top: 16px;">
+                                        <p class="text-tertiary"
+                                            style="margin: 0 0 8px 0; font-size: 12px; font-weight: 600; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.5px;">
+                                            More Discussions
+                                        </p>
+                                    </td>
+                                </tr>
+                                {% for post in reddit_posts[5:] %}
+                                <tr>
+                                    <td class="border-dashed"
+                                        style="padding: 6px 0; border-bottom: 1px dashed #e5e7eb;">
+                                        <a href="{{ post.url }}" class="link-orange"
+                                            style="color: #ea580c; text-decoration: none; font-size: 13px; line-height: 1.4;">
+                                            {{ post.title }}
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                                {% endif %}
                             </table>
                         </td>
                     </tr>
@@ -479,6 +502,32 @@
                                     </td>
                                 </tr>
                                 {% endfor %}
+
+                                <!-- Compact List for Remaining HF -->
+                                {% if hf_news|length > 5 %}
+                                <tr>
+                                    <td style="padding-top: 16px;">
+                                        <p class="text-tertiary"
+                                            style="margin: 0 0 8px 0; font-size: 12px; font-weight: 600; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.5px;">
+                                            More Models & Datasets
+                                        </p>
+                                    </td>
+                                </tr>
+                                {% for article in hf_news[5:] %}
+                                <tr>
+                                    <td class="border-dashed"
+                                        style="padding: 6px 0; border-bottom: 1px dashed #e5e7eb;">
+                                        <a href="{{ article.url }}" class="link-yellow"
+                                            style="color: #d97706; text-decoration: none; font-size: 13px; line-height: 1.4;">
+                                            {{ article.title }}
+                                        </a>
+                                        <span class="text-secondary"
+                                            style="color: #6b7280; font-size: 11px; margin-left: 6px;">{{ article.source
+                                            }}</span>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                                {% endif %}
                             </table>
                         </td>
                     </tr>
@@ -623,6 +672,32 @@
                                     </td>
                                 </tr>
                                 {% endfor %}
+
+                                <!-- Compact List for Remaining Tools -->
+                                {% if tools|length > 5 %}
+                                <tr>
+                                    <td style="padding-top: 16px;">
+                                        <p class="text-tertiary"
+                                            style="margin: 0 0 8px 0; font-size: 12px; font-weight: 600; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.5px;">
+                                            More Tools
+                                        </p>
+                                    </td>
+                                </tr>
+                                {% for tool in tools[5:] %}
+                                <tr>
+                                    <td class="border-dashed"
+                                        style="padding: 6px 0; border-bottom: 1px dashed #e5e7eb;">
+                                        <a href="{{ tool.url }}" class="link-orange"
+                                            style="color: #ea580c; text-decoration: none; font-size: 13px; line-height: 1.4;">
+                                            {{ tool.title }}
+                                        </a>
+                                        <span class="text-secondary"
+                                            style="color: #6b7280; font-size: 11px; margin-left: 6px;">Product
+                                            Hunt</span>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                                {% endif %}
                             </table>
                         </td>
                     </tr>
@@ -638,10 +713,10 @@
                                         <h2 class="section-header"
                                             style="margin: 0; color: #111827; font-size: 18px; font-weight: 600;">
                                             🔥 Hacker News
-                                            {% if lookback_labels and lookback_labels.default %}
+                                            {% if lookback_labels and lookback_labels.news %}
                                             <span class="text-secondary"
                                                 style="font-size: 12px; font-weight: 400; color: #6b7280; margin-left: 8px;">
-                                                ({{ lookback_labels.default }})
+                                                ({{ lookback_labels.news }})
                                             </span>
                                             {% endif %}
                                         </h2>
@@ -667,6 +742,29 @@
                                     </td>
                                 </tr>
                                 {% endfor %}
+
+                                <!-- Compact List for Remaining HN -->
+                                {% if discussions|length > 5 %}
+                                <tr>
+                                    <td style="padding-top: 16px;">
+                                        <p class="text-tertiary"
+                                            style="margin: 0 0 8px 0; font-size: 12px; font-weight: 600; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.5px;">
+                                            More Hacker News
+                                        </p>
+                                    </td>
+                                </tr>
+                                {% for discussion in discussions[5:] %}
+                                <tr>
+                                    <td class="border-dashed"
+                                        style="padding: 6px 0; border-bottom: 1px dashed #e5e7eb;">
+                                        <a href="{{ discussion.url }}" class="link-orange"
+                                            style="color: #d97706; text-decoration: none; font-size: 13px; line-height: 1.4;">
+                                            {{ discussion.title }}
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                                {% endif %}
                             </table>
                         </td>
                     </tr>

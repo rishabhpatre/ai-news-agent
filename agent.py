@@ -212,7 +212,7 @@ class AINewsAgent:
         # Deduplicate Reddit
         print("  • Deduplicating Reddit...")
         reddit_posts = self.deduplicator.deduplicate_all(content['reddit_posts'])
-        reddit_posts = reddit_posts[:5] # Hard limit for now
+        reddit_posts = reddit_posts[:10] # Increased to 10 for 5+5 layout
         print(f"    {len(content['reddit_posts'])} → {len(reddit_posts)}")
 
         # Deduplicate Videos
@@ -224,7 +224,7 @@ class AINewsAgent:
         # Deduplicate Tools
         print("  • Deduplicating Tools...")
         tools = self.deduplicator.deduplicate_all(content['tools'])
-        tools = tools[:5] 
+        tools = tools[:10] # Increased to 10 for 5+5 layout
         print(f"    {len(content['tools'])} → {len(tools)}")
         
         # Deduplicate discussions
