@@ -70,26 +70,20 @@ class SMTPClient:
     def send_digest(
         self,
         to_email: str,
-        papers: List[Article],
-        news_api: List[Article],
-        rss_news: List[Article],
-        reddit_posts: List[Article],
-        videos: List[Article],
-        tools: List[Article],
-        discussions: List[Article],
-        hf_news: List[Article],
+        papers: List[Article] = None,
+        news_api: List[Article] = None,
+        rss_news: List[Article] = None,
+        reddit_posts: List[Article] = None,
+        videos: List[Article] = None,
+        tools: List[Article] = None,
+        discussions: List[Article] = None,
+        hf_news: List[Article] = None,
+        lookback_labels: dict = None,
         dry_run: bool = False,
     ) -> bool:
         """
         Send the daily AI news digest email.
-        
-        Args:
-            to_email: Recipient email address.
-            papers: List of research paper articles.
-            news_api: List of global news articles.
-            rss_news: List of community/blog updates.
-            reddit_posts: List of Reddit posts.
-        """Send the digest email."""
+        """
         papers = papers or []
         news_api = news_api or []
         rss_news = rss_news or []
@@ -98,6 +92,7 @@ class SMTPClient:
         videos = videos or []
         tools = tools or []
         discussions = discussions or []
+        lookback_labels = lookback_labels or {}
         lookback_labels = lookback_labels or {}
         
         # Render HTML template
