@@ -5,6 +5,105 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Daily Digest</title>
+    <style type="text/css">
+        /* Client-specific resets */
+        body,
+        table,
+        td,
+        a {
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+        }
+
+        table,
+        td {
+            mso-table-lspace: 0pt;
+            mso-table-rspace: 0pt;
+        }
+
+        img {
+            -ms-interpolation-mode: bicubic;
+        }
+
+        /* Dark Mode Overrides */
+        @media (prefers-color-scheme: dark) {
+            .body-bg {
+                background-color: #0f0f0f !important;
+            }
+
+            .container-bg {
+                background-color: #1a1a1a !important;
+                box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4) !important;
+            }
+
+            .title-text {
+                color: #ffffff !important;
+            }
+
+            .subtitle-text {
+                color: rgba(255, 255, 255, 0.85) !important;
+            }
+
+            .section-header {
+                color: #f0f0f0 !important;
+            }
+
+            .text-primary {
+                color: #f0f0f0 !important;
+            }
+
+            .text-secondary {
+                color: #a0a0a0 !important;
+            }
+
+            .text-tertiary {
+                color: #666666 !important;
+            }
+
+            .border-bottom {
+                border-bottom: 1px solid #2a2a2a !important;
+            }
+
+            .border-dashed {
+                border-bottom: 1px dashed #2a2a2a !important;
+            }
+
+            .tag-bg {
+                background-color: #2a2a2a !important;
+                border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            }
+
+            .footer-bg {
+                background-color: #141414 !important;
+                border-top: 1px solid #2a2a2a !important;
+            }
+
+            /* Link Colors - Lighter shades for dark backgrounds */
+            .link-blue {
+                color: #60a5fa !important;
+            }
+
+            .link-purple {
+                color: #a78bfa !important;
+            }
+
+            .link-green {
+                color: #34d399 !important;
+            }
+
+            .link-orange {
+                color: #fdba74 !important;
+            }
+
+            .link-red {
+                color: #f87171 !important;
+            }
+
+            .link-yellow {
+                color: #fcd34d !important;
+            }
+        }
+    </style>
     <!--[if mso]>
     <style type="text/css">
         body, table, td {font-family: Arial, sans-serif !important;}
@@ -12,28 +111,29 @@
     <![endif]-->
 </head>
 
-<body
-    style="margin: 0; padding: 0; background-color: #0f0f0f; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">
+<body class="body-bg"
+    style="margin: 0; padding: 0; background-color: #f3f4f6; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">
 
     <!-- Main Container -->
-    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%"
-        style="background-color: #0f0f0f;">
+    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" class="body-bg"
+        style="background-color: #f3f4f6;">
         <tr>
             <td align="center" style="padding: 20px 10px;">
 
                 <!-- Email Content -->
-                <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="600"
-                    style="max-width: 600px; background-color: #1a1a1a; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.4);">
+                <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="600" class="container-bg"
+                    style="max-width: 600px; background-color: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
 
                     <!-- Header -->
                     <tr>
                         <td
-                            style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 32px 24px; text-align: center;">
-                            <h1
+                            style="background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%); padding: 32px 24px; text-align: center;">
+                            <h1 class="title-text"
                                 style="margin: 0; color: #ffffff; font-size: 28px; font-weight: 700; letter-spacing: -0.5px;">
                                 🤖 AI Daily Digest
                             </h1>
-                            <p style="margin: 8px 0 0 0; color: rgba(255,255,255,0.85); font-size: 14px;">
+                            <p class="subtitle-text"
+                                style="margin: 8px 0 0 0; color: rgba(255,255,255,0.9); font-size: 14px;">
                                 {{ date }} • {{ total_count }} items curated for you
                             </p>
                         </td>
@@ -42,19 +142,19 @@
                     <!-- Table of Contents -->
                     <tr>
                         <td style="padding: 0 24px 24px 24px; text-align: center;">
-                            <p style="margin: 0; font-size: 13px; color: #666;">
+                            <p class="text-secondary" style="margin: 0; font-size: 13px; color: #6b7280;">
                                 Jump to:
-                                {% if papers %}<a href="#papers"
-                                    style="color: #a78bfa; text-decoration: none; margin: 0 4px;">Papers</a> •{% endif
+                                {% if papers %}<a href="#papers" class="link-purple"
+                                    style="color: #7c3aed; text-decoration: none; margin: 0 4px;">Papers</a> •{% endif
                                 %}
-                                {% if rss_news %}<a href="#community"
-                                    style="color: #a78bfa; text-decoration: none; margin: 0 4px;">Community</a> •{%
+                                {% if rss_news %}<a href="#community" class="link-purple"
+                                    style="color: #7c3aed; text-decoration: none; margin: 0 4px;">Community</a> •{%
                                 endif %}
-                                {% if news_api %}<a href="#headlines"
-                                    style="color: #a78bfa; text-decoration: none; margin: 0 4px;">Headlines</a> •{%
+                                {% if news_api %}<a href="#headlines" class="link-purple"
+                                    style="color: #7c3aed; text-decoration: none; margin: 0 4px;">Headlines</a> •{%
                                 endif %}
-                                {% if videos %}<a href="#watch"
-                                    style="color: #a78bfa; text-decoration: none; margin: 0 4px;">Watch List</a>{% endif
+                                {% if videos %}<a href="#watch" class="link-purple"
+                                    style="color: #7c3aed; text-decoration: none; margin: 0 4px;">Watch List</a>{% endif
                                 %}
                             </p>
                         </td>
@@ -67,37 +167,39 @@
                             <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                                 <tr>
                                     <td style="padding-bottom: 16px;">
-                                        <h2 id="papers"
-                                            style="margin: 0; color: #f0f0f0; font-size: 18px; font-weight: 600;">
+                                        <h2 id="papers" class="section-header"
+                                            style="margin: 0; color: #111827; font-size: 18px; font-weight: 600;">
                                             📄 Research Papers
                                             {% if lookback_labels and lookback_labels.papers %}
-                                            <span
-                                                style="font-size: 12px; font-weight: 400; color: #666; margin-left: 8px;">
+                                            <span class="text-secondary"
+                                                style="font-size: 12px; font-weight: 400; color: #6b7280; margin-left: 8px;">
                                                 ({{ lookback_labels.papers }})
                                             </span>
                                             {% endif %}
                                         </h2>
                                         <div
-                                            style="width: 40px; height: 3px; background: linear-gradient(90deg, #667eea, #764ba2); margin-top: 8px; border-radius: 2px;">
+                                            style="width: 40px; height: 3px; background: linear-gradient(90deg, #4f46e5, #7c3aed); margin-top: 8px; border-radius: 2px;">
                                         </div>
                                     </td>
                                 </tr>
                                 {% for paper in papers[:5] %}
                                 <tr>
-                                    <td style="padding: 12px 0; border-bottom: 1px solid #2a2a2a;">
-                                        <a href="{{ paper.url }}"
-                                            style="color: #60a5fa; text-decoration: none; font-size: 15px; font-weight: 500; line-height: 1.4;">
+                                    <td class="border-bottom"
+                                        style="padding: 12px 0; border-bottom: 1px solid #e5e7eb;">
+                                        <a href="{{ paper.url }}" class="link-blue"
+                                            style="color: #2563eb; text-decoration: none; font-size: 15px; font-weight: 500; line-height: 1.4;">
                                             {{ paper.title }}
                                         </a>
                                         {% if paper.authors %}
-                                        <p style="margin: 6px 0 0 0; color: #888; font-size: 12px;">
+                                        <p class="text-tertiary"
+                                            style="margin: 6px 0 0 0; color: #6b7280; font-size: 12px;">
                                             {{ paper.authors[:3]|join(', ') }}{% if paper.authors|length > 3 %} et al.{%
                                             endif %}
                                         </p>
                                         {% endif %}
                                         {% if paper.summary %}
-                                        <p
-                                            style="margin: 8px 0 0 0; color: #a0a0a0; font-size: 13px; line-height: 1.5; white-space: pre-line; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
+                                        <p class="text-secondary"
+                                            style="margin: 8px 0 0 0; color: #4b5563; font-size: 13px; line-height: 1.5; white-space: pre-line; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
                                             {{ paper.summary|truncate(280) }}
                                         </p>
                                         {% endif %}
@@ -109,17 +211,18 @@
                                 {% if papers|length > 5 %}
                                 <tr>
                                     <td style="padding-top: 16px;">
-                                        <p
-                                            style="margin: 0 0 8px 0; font-size: 12px; font-weight: 600; color: #666; text-transform: uppercase; letter-spacing: 0.5px;">
+                                        <p class="text-tertiary"
+                                            style="margin: 0 0 8px 0; font-size: 12px; font-weight: 600; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.5px;">
                                             More Papers
                                         </p>
                                     </td>
                                 </tr>
                                 {% for paper in papers[5:] %}
                                 <tr>
-                                    <td style="padding: 6px 0; border-bottom: 1px dashed #2a2a2a;">
-                                        <a href="{{ paper.url }}"
-                                            style="color: #60a5fa; text-decoration: none; font-size: 13px; line-height: 1.4;">
+                                    <td class="border-dashed"
+                                        style="padding: 6px 0; border-bottom: 1px dashed #e5e7eb;">
+                                        <a href="{{ paper.url }}" class="link-blue"
+                                            style="color: #2563eb; text-decoration: none; font-size: 13px; line-height: 1.4;">
                                             {{ paper.title }}
                                         </a>
                                     </td>
@@ -138,37 +241,39 @@
                             <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                                 <tr>
                                     <td style="padding-bottom: 16px;">
-                                        <h2 id="community"
-                                            style="margin: 0; color: #f0f0f0; font-size: 18px; font-weight: 600;">
+                                        <h2 id="community" class="section-header"
+                                            style="margin: 0; color: #111827; font-size: 18px; font-weight: 600;">
                                             🌐 Community Updates
                                             {% if lookback_labels and lookback_labels.default %}
-                                            <span
-                                                style="font-size: 12px; font-weight: 400; color: #666; margin-left: 8px;">
+                                            <span class="text-secondary"
+                                                style="font-size: 12px; font-weight: 400; color: #6b7280; margin-left: 8px;">
                                                 ({{ lookback_labels.default }})
                                             </span>
                                             {% endif %}
                                         </h2>
                                         <div
-                                            style="width: 40px; height: 3px; background: linear-gradient(90deg, #8b5cf6, #7c3aed); margin-top: 8px; border-radius: 2px;">
+                                            style="width: 40px; height: 3px; background: linear-gradient(90deg, #7c3aed, #8b5cf6); margin-top: 8px; border-radius: 2px;">
                                         </div>
                                     </td>
                                 </tr>
                                 {% for article in rss_news[:5] %}
                                 <tr>
-                                    <td style="padding: 12px 0; border-bottom: 1px solid #2a2a2a;">
-                                        <a href="{{ article.url }}"
-                                            style="color: #a78bfa; text-decoration: none; font-size: 15px; font-weight: 500; line-height: 1.4;">
+                                    <td class="border-bottom"
+                                        style="padding: 12px 0; border-bottom: 1px solid #e5e7eb;">
+                                        <a href="{{ article.url }}" class="link-purple"
+                                            style="color: #7c3aed; text-decoration: none; font-size: 15px; font-weight: 500; line-height: 1.4;">
                                             {{ article.title }}
                                         </a>
-                                        <p style="margin: 4px 0 0 0; color: #666; font-size: 12px;">
-                                            <span
-                                                style="display: inline-block; background: #2a2a2a; padding: 2px 8px; border-radius: 4px; color: #a78bfa; border: 1px solid rgba(167, 139, 250, 0.2);">
+                                        <p class="text-tertiary"
+                                            style="margin: 4px 0 0 0; color: #6b7280; font-size: 12px;">
+                                            <span class="tag-bg link-purple"
+                                                style="display: inline-block; background: #f3f4f6; padding: 2px 8px; border-radius: 4px; color: #7c3aed; border: 1px solid #e5e7eb;">
                                                 {{ article.source }}
                                             </span>
                                         </p>
                                         {% if article.summary %}
-                                        <p
-                                            style="margin: 8px 0 0 0; color: #a0a0a0; font-size: 13px; line-height: 1.5; white-space: pre-line; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
+                                        <p class="text-secondary"
+                                            style="margin: 8px 0 0 0; color: #4b5563; font-size: 13px; line-height: 1.5; white-space: pre-line; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
                                             {{ article.summary|truncate(280) }}
                                         </p>
                                         {% endif %}
@@ -180,20 +285,22 @@
                                 {% if rss_news|length > 5 %}
                                 <tr>
                                     <td style="padding-top: 16px;">
-                                        <p
-                                            style="margin: 0 0 8px 0; font-size: 12px; font-weight: 600; color: #666; text-transform: uppercase; letter-spacing: 0.5px;">
+                                        <p class="text-tertiary"
+                                            style="margin: 0 0 8px 0; font-size: 12px; font-weight: 600; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.5px;">
                                             More Updates
                                         </p>
                                     </td>
                                 </tr>
                                 {% for article in rss_news[5:] %}
                                 <tr>
-                                    <td style="padding: 6px 0; border-bottom: 1px dashed #2a2a2a;">
-                                        <a href="{{ article.url }}"
-                                            style="color: #a78bfa; text-decoration: none; font-size: 13px; line-height: 1.4;">
+                                    <td class="border-dashed"
+                                        style="padding: 6px 0; border-bottom: 1px dashed #e5e7eb;">
+                                        <a href="{{ article.url }}" class="link-purple"
+                                            style="color: #7c3aed; text-decoration: none; font-size: 13px; line-height: 1.4;">
                                             {{ article.title }}
                                         </a>
-                                        <span style="color: #555; font-size: 11px; margin-left: 6px;">{{ article.source
+                                        <span class="text-secondary"
+                                            style="color: #6b7280; font-size: 11px; margin-left: 6px;">{{ article.source
                                             }}</span>
                                     </td>
                                 </tr>
@@ -212,37 +319,39 @@
                             <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                                 <tr>
                                     <td style="padding-bottom: 16px;">
-                                        <h2 id="headlines"
-                                            style="margin: 0; color: #f0f0f0; font-size: 18px; font-weight: 600;">
+                                        <h2 id="headlines" class="section-header"
+                                            style="margin: 0; color: #111827; font-size: 18px; font-weight: 600;">
                                             📰 Global Headlines
                                             {% if lookback_labels and lookback_labels.news %}
-                                            <span
-                                                style="font-size: 12px; font-weight: 400; color: #666; margin-left: 8px;">
+                                            <span class="text-secondary"
+                                                style="font-size: 12px; font-weight: 400; color: #6b7280; margin-left: 8px;">
                                                 ({{ lookback_labels.news }})
                                             </span>
                                             {% endif %}
                                         </h2>
                                         <div
-                                            style="width: 40px; height: 3px; background: linear-gradient(90deg, #10b981, #059669); margin-top: 8px; border-radius: 2px;">
+                                            style="width: 40px; height: 3px; background: linear-gradient(90deg, #059669, #10b981); margin-top: 8px; border-radius: 2px;">
                                         </div>
                                     </td>
                                 </tr>
                                 {% for article in news_api[:5] %}
                                 <tr>
-                                    <td style="padding: 12px 0; border-bottom: 1px solid #2a2a2a;">
-                                        <a href="{{ article.url }}"
-                                            style="color: #34d399; text-decoration: none; font-size: 15px; font-weight: 500; line-height: 1.4;">
+                                    <td class="border-bottom"
+                                        style="padding: 12px 0; border-bottom: 1px solid #e5e7eb;">
+                                        <a href="{{ article.url }}" class="link-green"
+                                            style="color: #059669; text-decoration: none; font-size: 15px; font-weight: 500; line-height: 1.4;">
                                             {{ article.title }}
                                         </a>
-                                        <p style="margin: 4px 0 0 0; color: #666; font-size: 12px;">
-                                            <span
-                                                style="display: inline-block; background: #2a2a2a; padding: 2px 8px; border-radius: 4px; color: #888;">
+                                        <p class="text-tertiary"
+                                            style="margin: 4px 0 0 0; color: #6b7280; font-size: 12px;">
+                                            <span class="tag-bg text-secondary"
+                                                style="display: inline-block; background: #f3f4f6; padding: 2px 8px; border-radius: 4px; color: #4b5563; border: 1px solid #e5e7eb;">
                                                 {{ article.source }}
                                             </span>
                                         </p>
                                         {% if article.summary %}
-                                        <p
-                                            style="margin: 8px 0 0 0; color: #a0a0a0; font-size: 13px; line-height: 1.5; white-space: pre-line; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
+                                        <p class="text-secondary"
+                                            style="margin: 8px 0 0 0; color: #4b5563; font-size: 13px; line-height: 1.5; white-space: pre-line; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
                                             {{ article.summary|truncate(280) }}
                                         </p>
                                         {% endif %}
@@ -254,20 +363,22 @@
                                 {% if news_api|length > 5 %}
                                 <tr>
                                     <td style="padding-top: 16px;">
-                                        <p
-                                            style="margin: 0 0 8px 0; font-size: 12px; font-weight: 600; color: #666; text-transform: uppercase; letter-spacing: 0.5px;">
+                                        <p class="text-tertiary"
+                                            style="margin: 0 0 8px 0; font-size: 12px; font-weight: 600; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.5px;">
                                             More Headlines
                                         </p>
                                     </td>
                                 </tr>
                                 {% for article in news_api[5:] %}
                                 <tr>
-                                    <td style="padding: 6px 0; border-bottom: 1px dashed #2a2a2a;">
-                                        <a href="{{ article.url }}"
-                                            style="color: #34d399; text-decoration: none; font-size: 13px; line-height: 1.4;">
+                                    <td class="border-dashed"
+                                        style="padding: 6px 0; border-bottom: 1px dashed #e5e7eb;">
+                                        <a href="{{ article.url }}" class="link-green"
+                                            style="color: #059669; text-decoration: none; font-size: 13px; line-height: 1.4;">
                                             {{ article.title }}
                                         </a>
-                                        <span style="color: #555; font-size: 11px; margin-left: 6px;">{{ article.source
+                                        <span class="text-secondary"
+                                            style="color: #6b7280; font-size: 11px; margin-left: 6px;">{{ article.source
                                             }}</span>
                                     </td>
                                 </tr>
@@ -285,30 +396,32 @@
                             <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                                 <tr>
                                     <td style="padding-bottom: 16px;">
-                                        <h2 style="margin: 0; color: #f0f0f0; font-size: 18px; font-weight: 600;">
+                                        <h2 class="section-header"
+                                            style="margin: 0; color: #111827; font-size: 18px; font-weight: 600;">
                                             👽 Reddit Discussions
                                             {% if lookback_labels and lookback_labels.default %}
-                                            <span
-                                                style="font-size: 12px; font-weight: 400; color: #666; margin-left: 8px;">
+                                            <span class="text-secondary"
+                                                style="font-size: 12px; font-weight: 400; color: #6b7280; margin-left: 8px;">
                                                 ({{ lookback_labels.default }})
                                             </span>
                                             {% endif %}
                                         </h2>
                                         <div
-                                            style="width: 40px; height: 3px; background: linear-gradient(90deg, #ff4500, #ff8700); margin-top: 8px; border-radius: 2px;">
+                                            style="width: 40px; height: 3px; background: linear-gradient(90deg, #ea580c, #c2410c); margin-top: 8px; border-radius: 2px;">
                                         </div>
                                     </td>
                                 </tr>
                                 {% for post in reddit_posts[:5] %}
                                 <tr>
-                                    <td style="padding: 12px 0; border-bottom: 1px solid #2a2a2a;">
-                                        <a href="{{ post.url }}"
-                                            style="color: #fdba74; text-decoration: none; font-size: 15px; font-weight: 500; line-height: 1.4;">
+                                    <td class="border-bottom"
+                                        style="padding: 12px 0; border-bottom: 1px solid #e5e7eb;">
+                                        <a href="{{ post.url }}" class="link-orange"
+                                            style="color: #ea580c; text-decoration: none; font-size: 15px; font-weight: 500; line-height: 1.4;">
                                             {{ post.title }}
                                         </a>
                                         {% if post.summary %}
-                                        <p
-                                            style="margin: 8px 0 0 0; color: #a0a0a0; font-size: 13px; line-height: 1.5; white-space: pre-line; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
+                                        <p class="text-secondary"
+                                            style="margin: 8px 0 0 0; color: #4b5563; font-size: 13px; line-height: 1.5; white-space: pre-line; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
                                             {{ post.summary|truncate(280) }}
                                         </p>
                                         {% endif %}
@@ -327,36 +440,39 @@
                             <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                                 <tr>
                                     <td style="padding-bottom: 16px;">
-                                        <h2 style="margin: 0; color: #f0f0f0; font-size: 18px; font-weight: 600;">
+                                        <h2 class="section-header"
+                                            style="margin: 0; color: #111827; font-size: 18px; font-weight: 600;">
                                             🤗 Hugging Face Hub
                                             {% if lookback_labels and lookback_labels.default %}
-                                            <span
-                                                style="font-size: 12px; font-weight: 400; color: #666; margin-left: 8px;">
+                                            <span class="text-secondary"
+                                                style="font-size: 12px; font-weight: 400; color: #6b7280; margin-left: 8px;">
                                                 ({{ lookback_labels.default }})
                                             </span>
                                             {% endif %}
                                         </h2>
                                         <div
-                                            style="width: 40px; height: 3px; background: linear-gradient(90deg, #ffbd2e, #ff9a00); margin-top: 8px; border-radius: 2px;">
+                                            style="width: 40px; height: 3px; background: linear-gradient(90deg, #f59e0b, #d97706); margin-top: 8px; border-radius: 2px;">
                                         </div>
                                     </td>
                                 </tr>
                                 {% for article in hf_news[:5] %}
                                 <tr>
-                                    <td style="padding: 12px 0; border-bottom: 1px solid #2a2a2a;">
-                                        <a href="{{ article.url }}"
-                                            style="color: #fcd34d; text-decoration: none; font-size: 15px; font-weight: 500; line-height: 1.4;">
+                                    <td class="border-bottom"
+                                        style="padding: 12px 0; border-bottom: 1px solid #e5e7eb;">
+                                        <a href="{{ article.url }}" class="link-yellow"
+                                            style="color: #d97706; text-decoration: none; font-size: 15px; font-weight: 500; line-height: 1.4;">
                                             {{ article.title }}
                                         </a>
-                                        <p style="margin: 4px 0 0 0; color: #666; font-size: 12px;">
-                                            <span
-                                                style="display: inline-block; background: #2a2a2a; padding: 2px 8px; border-radius: 4px; color: #ffbd2e; border: 1px solid rgba(255, 189, 46, 0.2);">
+                                        <p class="text-tertiary"
+                                            style="margin: 4px 0 0 0; color: #6b7280; font-size: 12px;">
+                                            <span class="tag-bg link-yellow"
+                                                style="display: inline-block; background: #fffbeb; padding: 2px 8px; border-radius: 4px; color: #d97706; border: 1px solid #fcd34d;">
                                                 {{ article.source }}
                                             </span>
                                         </p>
                                         {% if article.summary %}
-                                        <p
-                                            style="margin: 8px 0 0 0; color: #a0a0a0; font-size: 13px; line-height: 1.5; white-space: pre-line; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
+                                        <p class="text-secondary"
+                                            style="margin: 8px 0 0 0; color: #4b5563; font-size: 13px; line-height: 1.5; white-space: pre-line; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
                                             {{ article.summary|truncate(280) }}
                                         </p>
                                         {% endif %}
@@ -375,12 +491,12 @@
                             <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                                 <tr>
                                     <td style="padding-bottom: 16px;">
-                                        <h2 id="watch"
-                                            style="margin: 0; color: #f0f0f0; font-size: 18px; font-weight: 600;">
+                                        <h2 id="watch" class="section-header"
+                                            style="margin: 0; color: #111827; font-size: 18px; font-weight: 600;">
                                             📺 Watch List
                                             {% if lookback_labels and lookback_labels.default %}
-                                            <span
-                                                style="font-size: 12px; font-weight: 400; color: #666; margin-left: 8px;">
+                                            <span class="text-secondary"
+                                                style="font-size: 12px; font-weight: 400; color: #6b7280; margin-left: 8px;">
                                                 ({{ lookback_labels.default }})
                                             </span>
                                             {% endif %}
@@ -392,7 +508,8 @@
                                 </tr>
                                 {% for video in videos[:5] %}
                                 <tr>
-                                    <td style="padding: 12px 0; border-bottom: 1px solid #2a2a2a;">
+                                    <td class="border-bottom"
+                                        style="padding: 12px 0; border-bottom: 1px solid #e5e7eb;">
                                         <table role="presentation" cellspacing="0" cellpadding="0" border="0"
                                             width="100%">
                                             <tr>
@@ -406,19 +523,20 @@
                                                 </td>
                                                 {% endif %}
                                                 <td style="vertical-align: top;">
-                                                    <a href="{{ video.url }}"
-                                                        style="color: #f87171; text-decoration: none; font-size: 15px; font-weight: 500; line-height: 1.4;">
+                                                    <a href="{{ video.url }}" class="link-red"
+                                                        style="color: #dc2626; text-decoration: none; font-size: 15px; font-weight: 500; line-height: 1.4;">
                                                         {{ video.title }}
                                                     </a>
-                                                    <p style="margin: 4px 0 0 0; color: #666; font-size: 12px;">
-                                                        <span
-                                                            style="display: inline-block; background: #2a2a2a; padding: 2px 8px; border-radius: 4px; color: #888;">
+                                                    <p class="text-tertiary"
+                                                        style="margin: 4px 0 0 0; color: #6b7280; font-size: 12px;">
+                                                        <span class="tag-bg text-tertiary"
+                                                            style="display: inline-block; background: #f3f4f6; padding: 2px 8px; border-radius: 4px; color: #6b7280; border: 1px solid #e5e7eb;">
                                                             {{ video.source }}
                                                         </span>
                                                     </p>
                                                     {% if video.summary %}
-                                                    <p
-                                                        style="margin: 8px 0 0 0; color: #a0a0a0; font-size: 13px; line-height: 1.5; white-space: pre-line; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
+                                                    <p class="text-secondary"
+                                                        style="margin: 8px 0 0 0; color: #4b5563; font-size: 13px; line-height: 1.5; white-space: pre-line; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
                                                         {{ video.summary|truncate(280) }}
                                                     </p>
                                                     {% endif %}
@@ -433,20 +551,22 @@
                                 {% if videos|length > 5 %}
                                 <tr>
                                     <td style="padding-top: 16px;">
-                                        <p
-                                            style="margin: 0 0 8px 0; font-size: 12px; font-weight: 600; color: #666; text-transform: uppercase; letter-spacing: 0.5px;">
+                                        <p class="text-tertiary"
+                                            style="margin: 0 0 8px 0; font-size: 12px; font-weight: 600; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.5px;">
                                             More Videos
                                         </p>
                                     </td>
                                 </tr>
                                 {% for video in videos[5:] %}
                                 <tr>
-                                    <td style="padding: 6px 0; border-bottom: 1px dashed #2a2a2a;">
-                                        <a href="{{ video.url }}"
-                                            style="color: #f87171; text-decoration: none; font-size: 13px; line-height: 1.4;">
+                                    <td class="border-dashed"
+                                        style="padding: 6px 0; border-bottom: 1px dashed #e5e7eb;">
+                                        <a href="{{ video.url }}" class="link-red"
+                                            style="color: #dc2626; text-decoration: none; font-size: 13px; line-height: 1.4;">
                                             {{ video.title }}
                                         </a>
-                                        <span style="color: #555; font-size: 11px; margin-left: 6px;">{{ video.source
+                                        <span class="text-secondary"
+                                            style="color: #6b7280; font-size: 11px; margin-left: 6px;">{{ video.source
                                             }}</span>
                                     </td>
                                 </tr>
@@ -464,36 +584,39 @@
                             <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                                 <tr>
                                     <td style="padding-bottom: 16px;">
-                                        <h2 style="margin: 0; color: #f0f0f0; font-size: 18px; font-weight: 600;">
+                                        <h2 class="section-header"
+                                            style="margin: 0; color: #111827; font-size: 18px; font-weight: 600;">
                                             🚀 New Tools
                                             {% if lookback_labels and lookback_labels.default %}
-                                            <span
-                                                style="font-size: 12px; font-weight: 400; color: #666; margin-left: 8px;">
+                                            <span class="text-secondary"
+                                                style="font-size: 12px; font-weight: 400; color: #6b7280; margin-left: 8px;">
                                                 ({{ lookback_labels.default }})
                                             </span>
                                             {% endif %}
                                         </h2>
                                         <div
-                                            style="width: 40px; height: 3px; background: linear-gradient(90deg, #da552f, #ea532a); margin-top: 8px; border-radius: 2px;">
+                                            style="width: 40px; height: 3px; background: linear-gradient(90deg, #ea580c, #c2410c); margin-top: 8px; border-radius: 2px;">
                                         </div>
                                     </td>
                                 </tr>
                                 {% for tool in tools[:5] %}
                                 <tr>
-                                    <td style="padding: 12px 0; border-bottom: 1px solid #2a2a2a;">
-                                        <a href="{{ tool.url }}"
-                                            style="color: #fdba74; text-decoration: none; font-size: 15px; font-weight: 500; line-height: 1.4;">
+                                    <td class="border-bottom"
+                                        style="padding: 12px 0; border-bottom: 1px solid #e5e7eb;">
+                                        <a href="{{ tool.url }}" class="link-orange"
+                                            style="color: #ea580c; text-decoration: none; font-size: 15px; font-weight: 500; line-height: 1.4;">
                                             {{ tool.title }}
                                         </a>
-                                        <p style="margin: 4px 0 0 0; color: #666; font-size: 12px;">
-                                            <span
-                                                style="display: inline-block; background: #2a2a2a; padding: 2px 8px; border-radius: 4px; color: #888;">
+                                        <p class="text-tertiary"
+                                            style="margin: 4px 0 0 0; color: #6b7280; font-size: 12px;">
+                                            <span class="tag-bg text-secondary"
+                                                style="display: inline-block; background: #f3f4f6; padding: 2px 8px; border-radius: 4px; color: #4b5563; border: 1px solid #e5e7eb;">
                                                 Product Hunt
                                             </span>
                                         </p>
                                         {% if tool.summary %}
-                                        <p
-                                            style="margin: 8px 0 0 0; color: #a0a0a0; font-size: 13px; line-height: 1.5; white-space: pre-line; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
+                                        <p class="text-secondary"
+                                            style="margin: 8px 0 0 0; color: #4b5563; font-size: 13px; line-height: 1.5; white-space: pre-line; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
                                             {{ tool.summary|truncate(280) }}
                                         </p>
                                         {% endif %}
@@ -512,11 +635,12 @@
                             <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                                 <tr>
                                     <td style="padding-bottom: 16px;">
-                                        <h2 style="margin: 0; color: #f0f0f0; font-size: 18px; font-weight: 600;">
+                                        <h2 class="section-header"
+                                            style="margin: 0; color: #111827; font-size: 18px; font-weight: 600;">
                                             🔥 Hacker News
                                             {% if lookback_labels and lookback_labels.default %}
-                                            <span
-                                                style="font-size: 12px; font-weight: 400; color: #666; margin-left: 8px;">
+                                            <span class="text-secondary"
+                                                style="font-size: 12px; font-weight: 400; color: #6b7280; margin-left: 8px;">
                                                 ({{ lookback_labels.default }})
                                             </span>
                                             {% endif %}
@@ -528,14 +652,15 @@
                                 </tr>
                                 {% for discussion in discussions[:5] %}
                                 <tr>
-                                    <td style="padding: 12px 0; border-bottom: 1px solid #2a2a2a;">
-                                        <a href="{{ discussion.url }}"
-                                            style="color: #fbbf24; text-decoration: none; font-size: 15px; font-weight: 500; line-height: 1.4;">
+                                    <td class="border-bottom"
+                                        style="padding: 12px 0; border-bottom: 1px solid #e5e7eb;">
+                                        <a href="{{ discussion.url }}" class="link-orange"
+                                            style="color: #d97706; text-decoration: none; font-size: 15px; font-weight: 500; line-height: 1.4;">
                                             {{ discussion.title }}
                                         </a>
                                         {% if discussion.summary %}
-                                        <p
-                                            style="margin: 8px 0 0 0; color: #a0a0a0; font-size: 13px; line-height: 1.5; white-space: pre-line; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
+                                        <p class="text-secondary"
+                                            style="margin: 8px 0 0 0; color: #4b5563; font-size: 13px; line-height: 1.5; white-space: pre-line; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
                                             {{ discussion.summary|truncate(280) }}
                                         </p>
                                         {% endif %}
@@ -549,14 +674,15 @@
 
                     <!-- Footer -->
                     <tr>
-                        <td
-                            style="background-color: #141414; padding: 20px 24px; text-align: center; border-top: 1px solid #2a2a2a;">
-                            <p style="margin: 0; color: #666; font-size: 12px;">
-                                Curated by <strong style="color: #888;">AI News Agent</strong> •
-                                <a href="https://github.com" style="color: #667eea; text-decoration: none;">View on
+                        <td class="footer-bg"
+                            style="background-color: #f9fafb; padding: 20px 24px; text-align: center; border-top: 1px solid #e5e7eb;">
+                            <p class="text-tertiary" style="margin: 0; color: #6b7280; font-size: 12px;">
+                                Curated by <strong style="color: #4b5563;">AI News Agent</strong> •
+                                <a href="https://github.com" class="link-blue"
+                                    style="color: #4f46e5; text-decoration: none;">View on
                                     GitHub</a>
                             </p>
-                            <p style="margin: 8px 0 0 0; color: #555; font-size: 11px;">
+                            <p class="text-tertiary" style="margin: 8px 0 0 0; color: #9ca3af; font-size: 11px;">
                                 You're receiving this because you set up AI News Agent for daily digests.
                             </p>
                         </td>
