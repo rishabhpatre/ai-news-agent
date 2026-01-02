@@ -70,6 +70,12 @@
                                         <h2 id="papers"
                                             style="margin: 0; color: #f0f0f0; font-size: 18px; font-weight: 600;">
                                             📄 Research Papers
+                                            {% if lookback_labels and lookback_labels.papers %}
+                                            <span
+                                                style="font-size: 12px; font-weight: 400; color: #666; margin-left: 8px;">
+                                                ({{ lookback_labels.papers }})
+                                            </span>
+                                            {% endif %}
                                         </h2>
                                         <div
                                             style="width: 40px; height: 3px; background: linear-gradient(90deg, #667eea, #764ba2); margin-top: 8px; border-radius: 2px;">
@@ -135,6 +141,12 @@
                                         <h2 id="community"
                                             style="margin: 0; color: #f0f0f0; font-size: 18px; font-weight: 600;">
                                             🌐 Community Updates
+                                            {% if lookback_labels and lookback_labels.default %}
+                                            <span
+                                                style="font-size: 12px; font-weight: 400; color: #666; margin-left: 8px;">
+                                                ({{ lookback_labels.default }})
+                                            </span>
+                                            {% endif %}
                                         </h2>
                                         <div
                                             style="width: 40px; height: 3px; background: linear-gradient(90deg, #8b5cf6, #7c3aed); margin-top: 8px; border-radius: 2px;">
@@ -203,6 +215,12 @@
                                         <h2 id="headlines"
                                             style="margin: 0; color: #f0f0f0; font-size: 18px; font-weight: 600;">
                                             📰 Global Headlines
+                                            {% if lookback_labels and lookback_labels.news %}
+                                            <span
+                                                style="font-size: 12px; font-weight: 400; color: #666; margin-left: 8px;">
+                                                ({{ lookback_labels.news }})
+                                            </span>
+                                            {% endif %}
                                         </h2>
                                         <div
                                             style="width: 40px; height: 3px; background: linear-gradient(90deg, #10b981, #059669); margin-top: 8px; border-radius: 2px;">
@@ -269,6 +287,12 @@
                                     <td style="padding-bottom: 16px;">
                                         <h2 style="margin: 0; color: #f0f0f0; font-size: 18px; font-weight: 600;">
                                             👽 Reddit Discussions
+                                            {% if lookback_labels and lookback_labels.default %}
+                                            <span
+                                                style="font-size: 12px; font-weight: 400; color: #666; margin-left: 8px;">
+                                                ({{ lookback_labels.default }})
+                                            </span>
+                                            {% endif %}
                                         </h2>
                                         <div
                                             style="width: 40px; height: 3px; background: linear-gradient(90deg, #ff4500, #ff8700); margin-top: 8px; border-radius: 2px;">
@@ -305,6 +329,12 @@
                                     <td style="padding-bottom: 16px;">
                                         <h2 style="margin: 0; color: #f0f0f0; font-size: 18px; font-weight: 600;">
                                             🤗 Hugging Face Hub
+                                            {% if lookback_labels and lookback_labels.default %}
+                                            <span
+                                                style="font-size: 12px; font-weight: 400; color: #666; margin-left: 8px;">
+                                                ({{ lookback_labels.default }})
+                                            </span>
+                                            {% endif %}
                                         </h2>
                                         <div
                                             style="width: 40px; height: 3px; background: linear-gradient(90deg, #ffbd2e, #ff9a00); margin-top: 8px; border-radius: 2px;">
@@ -348,6 +378,12 @@
                                         <h2 id="watch"
                                             style="margin: 0; color: #f0f0f0; font-size: 18px; font-weight: 600;">
                                             📺 Watch List
+                                            {% if lookback_labels and lookback_labels.default %}
+                                            <span
+                                                style="font-size: 12px; font-weight: 400; color: #666; margin-left: 8px;">
+                                                ({{ lookback_labels.default }})
+                                            </span>
+                                            {% endif %}
                                         </h2>
                                         <div
                                             style="width: 40px; height: 3px; background: linear-gradient(90deg, #ef4444, #dc2626); margin-top: 8px; border-radius: 2px;">
@@ -430,6 +466,12 @@
                                     <td style="padding-bottom: 16px;">
                                         <h2 style="margin: 0; color: #f0f0f0; font-size: 18px; font-weight: 600;">
                                             🚀 New Tools
+                                            {% if lookback_labels and lookback_labels.default %}
+                                            <span
+                                                style="font-size: 12px; font-weight: 400; color: #666; margin-left: 8px;">
+                                                ({{ lookback_labels.default }})
+                                            </span>
+                                            {% endif %}
                                         </h2>
                                         <div
                                             style="width: 40px; height: 3px; background: linear-gradient(90deg, #da552f, #ea532a); margin-top: 8px; border-radius: 2px;">
@@ -472,6 +514,12 @@
                                     <td style="padding-bottom: 16px;">
                                         <h2 style="margin: 0; color: #f0f0f0; font-size: 18px; font-weight: 600;">
                                             🔥 Hacker News
+                                            {% if lookback_labels and lookback_labels.default %}
+                                            <span
+                                                style="font-size: 12px; font-weight: 400; color: #666; margin-left: 8px;">
+                                                ({{ lookback_labels.default }})
+                                            </span>
+                                            {% endif %}
                                         </h2>
                                         <div
                                             style="width: 40px; height: 3px; background: linear-gradient(90deg, #f59e0b, #d97706); margin-top: 8px; border-radius: 2px;">

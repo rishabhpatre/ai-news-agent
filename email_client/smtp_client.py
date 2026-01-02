@@ -89,14 +89,17 @@ class SMTPClient:
             news_api: List of global news articles.
             rss_news: List of community/blog updates.
             reddit_posts: List of Reddit posts.
-            videos: List of video articles.
-            tools: List of tool articles.
-            discussions: List of HN discussions.
-            dry_run: If True, print email instead of sending.
-            
-        Returns:
-            True if email sent successfully.
-        """
+        """Send the digest email."""
+        papers = papers or []
+        news_api = news_api or []
+        rss_news = rss_news or []
+        hf_news = hf_news or []
+        reddit_posts = reddit_posts or []
+        videos = videos or []
+        tools = tools or []
+        discussions = discussions or []
+        lookback_labels = lookback_labels or {}
+        
         # Render HTML template
         html_content = self._render_template(
             papers=papers,
@@ -107,6 +110,7 @@ class SMTPClient:
             tools=tools,
             discussions=discussions,
             hf_news=hf_news,
+            lookback_labels=lookback_labels,
         )
         
         # Handle multiple recipients

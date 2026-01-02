@@ -88,18 +88,24 @@ class AINewsAgent:
         """
         print(f"📡 Collecting content from sources (Lookback: {days_back} days standard, 7 days for tools/video)...")
         
-        # 1. ArXiv Papers (High frequency - keep tight)
+        # 1. ArXiv Papers (High frequency - keep tight, but cover weekends)
         print("  • ArXiv papers...")
-        papers = self.arxiv_source.fetch(days_back=days_back)
+        # Ensure at least 3 days for ArXiv to cover weekends
+        arxiv_days = max(3, days_back)
+        papers = self.arxiv_source.fetch(days_back=arxiv_days)
         print(f"    Found {len(papers)} papers")
         
-        # 2. NewsAPI (High frequency - but indexing can be delayed, using standard lookback)
-        print("  • News articles...")
+        # 2. Global News (NewsAPI)
+        print("  • Global Headlines...")
         news_api = []
         if settings.has_news_api:
-            # Match lookback to standard days_back
-            news_api = self.newsapi_source.fetch(days_back=days_back)
-        print(f"    Found {len(news_api)} from NewsAPI")
+            try:
+                news_api = self.newsapi_source.fetch(days_back=days_back)
+                print(f"    Found {len(news_api)} articles")
+            except Exception as e:
+                print(f"    Error fetching NewsAPI: {e}")
+        else:
+            print("    Skipping NewsAPI (no key configured)")
         
         # === SLOW NEWS SOURCES (Blogs, Reddit, YouTube) ===
         # These don't post daily, so we look back 7 days to avoid "empty" sections
@@ -278,6 +284,13 @@ class AINewsAgent:
         total = sum(len(v) for v in content.values())
         print(f"\n📧 {'Previewing' if dry_run else 'Sending'} digest with {total} items...")
         
+        # Define readable labels
+        lookback_labels = {
+            'papers': f"Past {max(3, settings.default_lookback)} days",
+            'news': f"Past {settings.default_lookback} days",
+            'default': "Past 7 days", # For extended lookback sources
+        }
+
         return self.email_client.send_digest(
             to_email=settings.recipient_email,
             papers=content['papers'],
@@ -288,6 +301,7 @@ class AINewsAgent:
             videos=content['videos'],
             tools=content['tools'],
             discussions=content['discussions'],
+            lookback_labels=lookback_labels,
             dry_run=dry_run,
         )
     
