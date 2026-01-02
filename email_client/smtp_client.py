@@ -207,7 +207,7 @@ class SMTPClient:
         html = f"""
         <html>
         <body style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-        <h1>🤖 AI Daily Digest</h1>
+        <h1>AI Daily Digest</h1>
         <p>{datetime.now().strftime('%B %d, %Y')}</p>
         """
         
