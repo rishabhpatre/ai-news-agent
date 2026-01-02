@@ -170,6 +170,7 @@ class SMTPClient:
         tools: List[Article],
         discussions: List[Article],
         hf_news: List[Article],
+        lookback_labels: dict = None,
     ) -> str:
         """Render the HTML email template."""
         try:
@@ -186,6 +187,7 @@ class SMTPClient:
                 tools=tools,
                 discussions=discussions,
                 total_count=total_count,
+                lookback_labels=lookback_labels,
             )
         except Exception as e:
             print(f"Template rendering failed: {e}")
