@@ -266,7 +266,7 @@ class AINewsAgent:
             'hf_news': hf_news,
         }
     
-    def send_digest(self, content: dict, dry_run: bool = False) -> bool:
+    def send_digest(self, content: dict, dry_run: bool = False, days_back: int = 1) -> bool:
         """
         Send the digest email.
         
@@ -286,8 +286,8 @@ class AINewsAgent:
         
         # Define readable labels
         lookback_labels = {
-            'papers': f"Past {max(3, settings.default_lookback)} days",
-            'news': f"Past {settings.default_lookback} days",
+            'papers': f"Past {max(3, days_back)} days",
+            'news': f"Past {days_back} days",
             'default': "Past 7 days", # For extended lookback sources
         }
 
@@ -334,7 +334,7 @@ class AINewsAgent:
             processed = self.process_content(content)
             
             # Send
-            success = self.send_digest(processed, dry_run=dry_run)
+            success = self.send_digest(processed, dry_run=dry_run, days_back=days_back)
             
             if success:
                 print(f"\n✅ Digest {'previewed' if dry_run else 'sent'} successfully!")
