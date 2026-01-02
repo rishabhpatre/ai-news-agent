@@ -86,13 +86,13 @@ class AINewsAgent:
         Returns:
             Dict with 'papers', 'news', and 'discussions' lists.
         """
-        print(f"📡 Collecting content from sources (Lookback: {days_back} days standard, 7 days for tools/video)...")
+        # Universal lookback: Minimum 3 days for EVERYTHING
+        days_back = max(3, days_back)
+        print(f"📡 Collecting content from sources (Lookback: {days_back} days universal)...")
         
-        # 1. ArXiv Papers (High frequency - keep tight, but cover weekends)
+        # 1. ArXiv Papers
         print("  • ArXiv papers...")
-        # Ensure at least 3 days for ArXiv to cover weekends
-        arxiv_days = max(3, days_back)
-        papers = self.arxiv_source.fetch(days_back=arxiv_days)
+        papers = self.arxiv_source.fetch(days_back=days_back)
         print(f"    Found {len(papers)} papers")
         
         # 2. Global News (NewsAPI)
@@ -106,10 +106,6 @@ class AINewsAgent:
                 print(f"    Error fetching NewsAPI: {e}")
         else:
             print("    Skipping NewsAPI (no key configured)")
-        
-        # === SLOW NEWS SOURCES (Blogs, Reddit, YouTube) ===
-        # These don't post daily, so we look back 7 days to avoid "empty" sections
-        extended_days = max(7, days_back)
         
         # 3. RSS Feeds (Blogs)
         print("  • RSS feeds...")
@@ -146,7 +142,7 @@ class AINewsAgent:
                 # RSSSource expects list of dicts
                 v_source = RSSSource([feed]) 
                 # Fetch videos (bypass relevance check for curated channels)
-                v_items = v_source.fetch(days_back=extended_days, check_relevance=False)
+                v_items = v_source.fetch(days_back=days_back, check_relevance=False)
                 # Add channel name to source (redundant if RSSSource does it, but safe)
                 for v in v_items:
                     v.source = feed['name']
@@ -161,12 +157,12 @@ class AINewsAgent:
         try:
             ph_feed = [{'name': 'Product Hunt', 'url': settings.product_hunt_rss}]
             ph_source = RSSSource(ph_feed)
-            tools = ph_source.fetch(days_back=extended_days)
+            tools = ph_source.fetch(days_back=days_back)
             print(f"    Found {len(tools)} tools")
         except Exception as e:
             print(f"    Error fetching Product Hunt: {e}")
 
-        # Hackernews (High frequency - keep tight, or maybe extended? HN moves fast, keeping 1 day is better)
+        # Hackernews
         print("  • Hacker News discussions...")
         discussions = self.hn_source.fetch(days_back=days_back)
         print(f"    Found {len(discussions)} discussions")
@@ -285,10 +281,12 @@ class AINewsAgent:
         print(f"\n📧 {'Previewing' if dry_run else 'Sending'} digest with {total} items...")
         
         # Define readable labels
+        # Define readable labels
+        label_text = f"Past {max(3, days_back)} days"
         lookback_labels = {
-            'papers': f"Past {max(3, days_back)} days",
-            'news': f"Past {days_back} days",
-            'default': "Past 7 days", # For extended lookback sources
+            'papers': label_text,
+            'news': label_text,
+            'default': label_text,
         }
 
         return self.email_client.send_digest(
