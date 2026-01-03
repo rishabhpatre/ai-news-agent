@@ -90,6 +90,12 @@ class Settings:
         {'name': 'Futurepedia', 'url': 'https://www.youtube.com/feeds/videos.xml?channel_id=UC_RovKmk0OCbuZjA8f08opw'},
         {'name': 'Vaibhav Sisinty', 'url': 'https://www.youtube.com/feeds/videos.xml?channel_id=UClXAalunTPaX1YV185DWUeg'},
         {'name': 'T3.gg', 'url': 'https://www.youtube.com/feeds/videos.xml?channel_id=UCtuO2h6OwDueF7h3p8DYYjQ'},
+        {'name': 'Krish Naik', 'url': 'https://www.youtube.com/feeds/videos.xml?channel_id=UCjWY5hREA6FFYrthD0rZNIw'},
+        {'name': 'AI Explained (New)', 'url': 'https://www.youtube.com/feeds/videos.xml?channel_id=UCNJ1Ymd5yFuUPtn21xtRbbw'},
+        {'name': 'Jeff Su', 'url': 'https://www.youtube.com/feeds/videos.xml?channel_id=UCwAnu01qlnVg1Ai2AbtTMaA'},
+        {'name': 'IBM Technology', 'url': 'https://www.youtube.com/feeds/videos.xml?channel_id=UCKWaEZ-_VweaEx1j62do_vQ'},
+        {'name': 'Matt Wolfe', 'url': 'https://www.youtube.com/feeds/videos.xml?channel_id=UChpleBmo18P08aKCIgti38g'},
+        {'name': 'DeepLearning.AI', 'url': 'https://www.youtube.com/feeds/videos.xml?channel_id=UCcIXc5mJsHVYTZR1maL5l9w'},
     ])
     
     # Product Hunt
