@@ -121,6 +121,11 @@ class NewsAPISource:
         # General AI terms
         if any(term in text for term in ['chatgpt', 'gpt-4', 'claude', 'gemini']):
             score += 1.5
+            
+        # Deprioritize specific sources
+        source_name = item.get('source', {}).get('name', '')
+        if 'pypi.org' in source_name.lower():
+            score -= 10.0
         
         return score
 

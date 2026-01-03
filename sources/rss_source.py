@@ -78,7 +78,7 @@ class RSSSource:
                         summary=summary,
                         authors=self._get_authors(entry),
                         thumbnail=self._get_thumbnail(entry),
-                        score=self._calculate_relevance(title, summary),
+                        score=self._calculate_relevance(title, summary, feed_info['name']),
                     )
                     articles.append(article)
                     
@@ -174,10 +174,20 @@ class RSSSource:
                 return True
         return False
     
-    def _calculate_relevance(self, title: str, summary: str) -> float:
-        """Calculate relevance score based on keyword matches."""
+    def _calculate_relevance(self, title: str, summary: str, source_name: str = '') -> float:
+        """Calculate relevance score based on keyword matches and source priority."""
         text = (title + ' ' + summary).lower()
         score = 0.0
+        
+        # Priority Sources (Company Blogs > Media)
+        priority_sources = [
+            'OpenAI', 'Anthropic', 'Google', 'DeepMind', 'Microsoft', 
+            'Hugging Face', 'NVIDIA', 'AWS', 'Meta'
+        ]
+        
+        # Check partial match for source name (e.g. "Google AI Blog" matches "Google")
+        if any(company.lower() in source_name.lower() for company in priority_sources):
+            score += 3.0
         
         # High-value terms
         high_value = ['llm', 'large language model', 'ai agent', 'agentic', 'gpt-4', 'claude']
