@@ -139,26 +139,6 @@
                         </td>
                     </tr>
 
-                    <!-- Table of Contents -->
-                    <tr>
-                        <td style="padding: 0 24px 24px 24px; text-align: center;">
-                            <p class="text-secondary" style="margin: 0; font-size: 13px; color: #6b7280;">
-                                Jump to:
-                                {% if papers %}<a href="#papers" class="link-purple"
-                                    style="color: #7c3aed; text-decoration: none; margin: 0 4px;">Papers</a> •{% endif
-                                %}
-                                {% if rss_news %}<a href="#community" class="link-purple"
-                                    style="color: #7c3aed; text-decoration: none; margin: 0 4px;">Community</a> •{%
-                                endif %}
-                                {% if news_api %}<a href="#headlines" class="link-purple"
-                                    style="color: #7c3aed; text-decoration: none; margin: 0 4px;">Headlines</a> •{%
-                                endif %}
-                                {% if videos %}<a href="#watch" class="link-purple"
-                                    style="color: #7c3aed; text-decoration: none; margin: 0 4px;">Watch List</a>{% endif
-                                %}
-                            </p>
-                        </td>
-                    </tr>
 
                     <!-- Research Papers Section -->
                     {% if papers %}
@@ -583,12 +563,6 @@
                                                             {{ video.source }}
                                                         </span>
                                                     </p>
-                                                    {% if video.summary %}
-                                                    <p class="text-secondary"
-                                                        style="margin: 8px 0 0 0; color: #4b5563; font-size: 13px; line-height: 1.5; white-space: pre-line; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
-                                                        {{ video.summary|truncate(280) }}
-                                                    </p>
-                                                    {% endif %}
                                                 </td>
                                             </tr>
                                         </table>
