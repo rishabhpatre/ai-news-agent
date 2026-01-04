@@ -140,7 +140,12 @@ class HackerNewsSource:
         relevance = 0.0
         
         # High-value terms
-        high_value = ['llm', 'large language model', 'ai agent', 'agentic', 'gpt-4', 'claude', 'o1']
+        high_value = [
+            'llm', 'large language model', 'ai agent', 'agentic', 'gpt-4', 'claude', 'o1',
+            'autonomous agent', 'reasoning model', 'multi-agent', 'test-time compute',
+            'long-horizon planning', 'memory-augmented', 'retrieval-augmented', 'rag',
+            'reasoning pipeline', 'agent framework', 'agent architecture'
+        ]
         for term in high_value:
             if term in title_lower:
                 relevance += 3.0

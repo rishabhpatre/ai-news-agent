@@ -190,7 +190,12 @@ class RSSSource:
             score += 3.0
         
         # High-value terms
-        high_value = ['llm', 'large language model', 'ai agent', 'agentic', 'gpt-4', 'claude']
+        high_value = [
+            'llm', 'large language model', 'ai agent', 'agentic', 'gpt-4', 'claude',
+            'autonomous agent', 'reasoning model', 'multi-agent', 'test-time compute',
+            'long-horizon planning', 'memory-augmented', 'retrieval-augmented', 'rag',
+            'reasoning pipeline', 'agent framework', 'agent architecture'
+        ]
         for term in high_value:
             if term in text:
                 score += 2.0

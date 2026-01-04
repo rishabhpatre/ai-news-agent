@@ -124,7 +124,12 @@ class ArxivSource:
         text = (result.title + ' ' + result.summary).lower()
         
         # High-value keywords
-        high_value = ['llm', 'large language model', 'ai agent', 'agentic', 'gpt', 'transformer']
+        high_value = [
+            'llm', 'large language model', 'ai agent', 'agentic', 'gpt', 'transformer',
+            'autonomous agent', 'reasoning model', 'multi-agent', 'test-time compute',
+            'long-horizon planning', 'memory-augmented', 'retrieval-augmented', 'rag',
+            'reasoning pipeline', 'agent framework', 'agent architecture'
+        ]
         medium_value = ['reasoning', 'benchmark', 'fine-tuning', 'prompt', 'chain-of-thought']
         
         for kw in high_value:

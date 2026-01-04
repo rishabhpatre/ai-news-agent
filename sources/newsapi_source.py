@@ -111,7 +111,13 @@ class NewsAPISource:
         text = ((item.get('title') or '') + ' ' + (item.get('description') or '')).lower()
         
         # High-value terms
-        if any(term in text for term in ['llm', 'large language model', 'ai agent']):
+        high_value = [
+            'llm', 'large language model', 'ai agent', 'agentic', 
+            'autonomous agent', 'reasoning model', 'multi-agent', 'test-time compute',
+            'long-horizon planning', 'memory-augmented', 'retrieval-augmented', 'rag',
+            'reasoning pipeline', 'agent framework', 'agent architecture'
+        ]
+        if any(term in text for term in high_value):
             score += 3.0
         
         # Brand mentions
