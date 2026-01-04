@@ -78,7 +78,7 @@ class RSSSource:
                         summary=summary,
                         authors=self._get_authors(entry),
                         thumbnail=self._get_thumbnail(entry),
-                        score=self._calculate_relevance(title, summary, feed_info['name']),
+                        score=self._calculate_relevance(title, summary, feed_info['name'], published),
                     )
                     articles.append(article)
                     
@@ -174,8 +174,8 @@ class RSSSource:
                 return True
         return False
     
-    def _calculate_relevance(self, title: str, summary: str, source_name: str = '') -> float:
-        """Calculate relevance score based on keyword matches and source priority."""
+    def _calculate_relevance(self, title: str, summary: str, source_name: str = '', published: datetime = None) -> float:
+        """Calculate relevance score based on keyword matches, source priority, and age."""
         text = (title + ' ' + summary).lower()
         score = 0.0
         
@@ -206,6 +206,14 @@ class RSSSource:
             if term in text:
                 score += 1.0
         
+        return score
+        
+        # Time Decay: -1.5 points per day old
+        if published:
+            age = datetime.now() - published
+            days_old = max(0, age.total_seconds() / 86400)
+            score -= (days_old * 1.5)
+            
         return score
 
 

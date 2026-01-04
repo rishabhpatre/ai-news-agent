@@ -92,7 +92,7 @@ class NewsAPISource:
                         published=published or datetime.now(),
                         summary=summary,
                         authors=[item.get('author')] if item.get('author') else [],
-                        score=self._calculate_relevance(item),
+                        score=self._calculate_relevance(item, published),
                     )
                     articles.append(article)
                     
@@ -105,7 +105,7 @@ class NewsAPISource:
         articles.sort(key=lambda x: (x.score, x.published or datetime.min), reverse=True)
         return articles[:self.max_results]
     
-    def _calculate_relevance(self, item: dict) -> float:
+    def _calculate_relevance(self, item: dict, published: datetime = None) -> float:
         """Calculate relevance score."""
         score = 0.0
         text = ((item.get('title') or '') + ' ' + (item.get('description') or '')).lower()
@@ -133,6 +133,14 @@ class NewsAPISource:
         if 'pypi.org' in source_name.lower():
             score -= 10.0
         
+        return score
+        
+        # Time Decay
+        if published:
+            age = datetime.now() - published
+            days_old = max(0, age.total_seconds() / 86400)
+            score -= (days_old * 1.5)
+            
         return score
 
 

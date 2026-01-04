@@ -141,6 +141,14 @@ class ArxivSource:
                 score += 1.0
         
         return score
+        
+        # Time Decay
+        if hasattr(result, 'published'):
+            age = datetime.now() - result.published.replace(tzinfo=None)
+            days_old = max(0, age.total_seconds() / 86400)
+            score -= (days_old * 1.5)
+            
+        return score
 
 
 # Quick test
