@@ -105,8 +105,8 @@ class ArxivSource:
         except Exception as e:
             print(f"Error fetching from ArXiv: {e}")
         
-        # Sort by relevance score
-        articles.sort(key=lambda x: x.score, reverse=True)
+        # Sort by relevance score (Score > Date)
+        articles.sort(key=lambda x: (x.score, x.published or datetime.min), reverse=True)
         return articles
     
     def _clean_abstract(self, abstract: str) -> str:

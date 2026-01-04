@@ -4,6 +4,7 @@ Uses fuzzy string matching to detect similar headlines.
 """
 
 from typing import List, Dict, Set
+from datetime import datetime
 from fuzzywuzzy import fuzz
 from sources.arxiv_source import Article
 
@@ -35,8 +36,13 @@ class Deduplicator:
         if not articles:
             return []
         
-        # Sort by score (highest first) so we keep the best version
-        sorted_articles = sorted(articles, key=lambda x: x.score, reverse=True)
+        # Sort by score (highest first), then by date (newest first)
+        # We prioritize score, then freshness, then original list order (stable sort)
+        sorted_articles = sorted(
+            articles, 
+            key=lambda x: (x.score, x.published or datetime.min), 
+            reverse=True
+        )
         
         unique_articles = []
         seen_titles: List[str] = []

@@ -85,8 +85,8 @@ class RSSSource:
             except Exception as e:
                 print(f"Error fetching RSS feed {feed_info['name']}: {e}")
         
-        # Sort by relevance
-        articles.sort(key=lambda x: x.score, reverse=True)
+        # Sort by relevance (Score > Date > Feed Order)
+        articles.sort(key=lambda x: (x.score, x.published or datetime.min), reverse=True)
         return articles
     
     def _parse_date(self, entry) -> datetime:

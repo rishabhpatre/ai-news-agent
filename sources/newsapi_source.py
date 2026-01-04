@@ -101,8 +101,8 @@ class NewsAPISource:
             except Exception as e:
                 print(f"Error processing NewsAPI response: {e}")
         
-        # Sort by score and limit
-        articles.sort(key=lambda x: x.score, reverse=True)
+        # Sort by score (Score > Date)
+        articles.sort(key=lambda x: (x.score, x.published or datetime.min), reverse=True)
         return articles[:self.max_results]
     
     def _calculate_relevance(self, item: dict) -> float:
