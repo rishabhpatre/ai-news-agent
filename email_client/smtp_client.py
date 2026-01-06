@@ -262,16 +262,6 @@ class SMTPClient:
                 lines.append(f"  {n.url}")
                 lines.append("")
 
-        if papers:
-            lines.append("📄 RESEARCH PAPERS")
-            lines.append("-" * 30)
-            for p in papers[:10]:
-                lines.append(f"• {p.title}")
-                if p.summary:
-                    lines.append(f"  {p.summary}")
-                lines.append(f"  {p.url}")
-                lines.append("")
-        
         if news_api:
             lines.append("📰 GLOBAL HEADLINES")
             lines.append("-" * 30)
@@ -280,6 +270,16 @@ class SMTPClient:
                 if n.summary:
                     lines.append(f"  {n.summary}")
                 lines.append(f"  {n.url}")
+                lines.append("")
+
+        if papers:
+            lines.append("📄 RESEARCH PAPERS")
+            lines.append("-" * 30)
+            for p in papers[:10]:
+                lines.append(f"• {p.title}")
+                if p.summary:
+                    lines.append(f"  {p.summary}")
+                lines.append(f"  {p.url}")
                 lines.append("")
 
         if reddit_posts:

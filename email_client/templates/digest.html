@@ -140,79 +140,6 @@
                     </tr>
 
 
-                    <!-- Research Papers Section -->
-                    {% if papers %}
-                    <tr>
-                        <td style="padding: 24px;">
-                            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
-                                <tr>
-                                    <td style="padding-bottom: 16px;">
-                                        <h2 id="papers" class="section-header"
-                                            style="margin: 0; color: #111827; font-size: 18px; font-weight: 600;">
-                                            📄 Research Papers
-                                            {% if lookback_labels and lookback_labels.papers %}
-                                            <span class="text-secondary"
-                                                style="font-size: 12px; font-weight: 400; color: #6b7280; margin-left: 8px;">
-                                                ({{ lookback_labels.papers }})
-                                            </span>
-                                            {% endif %}
-                                        </h2>
-                                        <div
-                                            style="width: 40px; height: 3px; background: linear-gradient(90deg, #4f46e5, #7c3aed); margin-top: 8px; border-radius: 2px;">
-                                        </div>
-                                    </td>
-                                </tr>
-                                {% for paper in papers[:5] %}
-                                <tr>
-                                    <td class="border-bottom"
-                                        style="padding: 12px 0; border-bottom: 1px solid #e5e7eb;">
-                                        <a href="{{ paper.url }}" class="link-blue"
-                                            style="color: #2563eb; text-decoration: none; font-size: 15px; font-weight: 500; line-height: 1.4;">
-                                            {{ paper.title }}
-                                        </a>
-                                        {% if paper.authors %}
-                                        <p class="text-tertiary"
-                                            style="margin: 6px 0 0 0; color: #6b7280; font-size: 12px;">
-                                            {{ paper.authors[:3]|join(', ') }}{% if paper.authors|length > 3 %} et al.{%
-                                            endif %}
-                                        </p>
-                                        {% endif %}
-                                        {% if paper.summary %}
-                                        <p class="text-secondary"
-                                            style="margin: 8px 0 0 0; color: #4b5563; font-size: 13px; line-height: 1.5; white-space: pre-line; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
-                                            {{ paper.summary|truncate(280) }}
-                                        </p>
-                                        {% endif %}
-                                    </td>
-                                </tr>
-                                {% endfor %}
-
-                                <!-- Compact List for Remaining Papers -->
-                                {% if papers|length > 5 %}
-                                <tr>
-                                    <td style="padding-top: 16px;">
-                                        <p class="text-tertiary"
-                                            style="margin: 0 0 8px 0; font-size: 12px; font-weight: 600; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.5px;">
-                                            More Papers
-                                        </p>
-                                    </td>
-                                </tr>
-                                {% for paper in papers[5:] %}
-                                <tr>
-                                    <td class="border-dashed"
-                                        style="padding: 6px 0; border-bottom: 1px dashed #e5e7eb;">
-                                        <a href="{{ paper.url }}" class="link-blue"
-                                            style="color: #2563eb; text-decoration: none; font-size: 13px; line-height: 1.4;">
-                                            {{ paper.title }}
-                                        </a>
-                                    </td>
-                                </tr>
-                                {% endfor %}
-                                {% endif %}
-                            </table>
-                        </td>
-                    </tr>
-                    {% endif %}
 
                     <!-- Community Updates Section (RSS) -->
                     {% if rss_news %}
@@ -360,6 +287,80 @@
                                         <span class="text-secondary"
                                             style="color: #6b7280; font-size: 11px; margin-left: 6px;">{{ article.source
                                             }}</span>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                                {% endif %}
+                            </table>
+                        </td>
+                    </tr>
+                    {% endif %}
+
+                    <!-- Research Papers Section -->
+                    {% if papers %}
+                    <tr>
+                        <td style="padding: 24px;">
+                            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                                <tr>
+                                    <td style="padding-bottom: 16px;">
+                                        <h2 id="papers" class="section-header"
+                                            style="margin: 0; color: #111827; font-size: 18px; font-weight: 600;">
+                                            📄 Research Papers
+                                            {% if lookback_labels and lookback_labels.papers %}
+                                            <span class="text-secondary"
+                                                style="font-size: 12px; font-weight: 400; color: #6b7280; margin-left: 8px;">
+                                                ({{ lookback_labels.papers }})
+                                            </span>
+                                            {% endif %}
+                                        </h2>
+                                        <div
+                                            style="width: 40px; height: 3px; background: linear-gradient(90deg, #4f46e5, #7c3aed); margin-top: 8px; border-radius: 2px;">
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% for paper in papers[:5] %}
+                                <tr>
+                                    <td class="border-bottom"
+                                        style="padding: 12px 0; border-bottom: 1px solid #e5e7eb;">
+                                        <a href="{{ paper.url }}" class="link-blue"
+                                            style="color: #2563eb; text-decoration: none; font-size: 15px; font-weight: 500; line-height: 1.4;">
+                                            {{ paper.title }}
+                                        </a>
+                                        {% if paper.authors %}
+                                        <p class="text-tertiary"
+                                            style="margin: 6px 0 0 0; color: #6b7280; font-size: 12px;">
+                                            {{ paper.authors[:3]|join(', ') }}{% if paper.authors|length > 3 %} et al.{%
+                                            endif %}
+                                        </p>
+                                        {% endif %}
+                                        {% if paper.summary %}
+                                        <p class="text-secondary"
+                                            style="margin: 8px 0 0 0; color: #4b5563; font-size: 13px; line-height: 1.5; white-space: pre-line; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
+                                            {{ paper.summary|truncate(280) }}
+                                        </p>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+
+                                <!-- Compact List for Remaining Papers -->
+                                {% if papers|length > 5 %}
+                                <tr>
+                                    <td style="padding-top: 16px;">
+                                        <p class="text-tertiary"
+                                            style="margin: 0 0 8px 0; font-size: 12px; font-weight: 600; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.5px;">
+                                            More Papers
+                                        </p>
+                                    </td>
+                                </tr>
+                                {% for paper in papers[5:] %}
+                                <tr>
+                                    <td class="border-dashed"
+                                        style="padding: 6px 0; border-bottom: 1px dashed #e5e7eb;">
+                                        <a href="{{ paper.url }}" class="link-blue"
+                                            style="color: #2563eb; text-decoration: none; font-size: 13px; line-height: 1.4;">
+                                            {{ paper.title }}
+                                        </a>
                                     </td>
                                 </tr>
                                 {% endfor %}

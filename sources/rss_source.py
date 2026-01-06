@@ -4,6 +4,7 @@ Uses feedparser library to parse RSS/Atom feeds.
 """
 
 import feedparser
+import requests
 from datetime import datetime, timedelta
 from typing import List, Dict, Any
 from time import mktime
@@ -34,6 +35,11 @@ class RSSSource:
             'chatgpt', 'gpt', 'claude', 'gemini', 'machine learning',
             'deep learning', 'neural network', 'transformer', 'ai agent',
         ]
+        
+        # Reddit requires a specific User-Agent format
+        self.headers = {
+            'User-Agent': 'python:ai-news-agent:v1.0 (by /u/ai_news_agent_dev)'
+        }
     
     def fetch(self, days_back: int = 1, check_relevance: bool = True) -> List[Article]:
         """
@@ -51,8 +57,14 @@ class RSSSource:
         
         for feed_info in self.feeds:
             try:
-                # Add User-Agent to avoid blocking
-                feed = feedparser.parse(feed_info['url'], agent='Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36')
+                # Use requests to fetch content first (better header control)
+                response = requests.get(feed_info['url'], headers=self.headers, timeout=10)
+                
+                if response.status_code != 200:
+                    print(f"Warning: Failed to fetch {feed_info['name']} (Status: {response.status_code})")
+                    continue
+                    
+                feed = feedparser.parse(response.text)
                 
                 if feed.bozo and not feed.entries:
                     print(f"Warning: Could not parse feed {feed_info['name']}")
