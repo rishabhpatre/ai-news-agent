@@ -400,12 +400,13 @@
                                             style="color: #ea580c; text-decoration: none; font-size: 15px; font-weight: 500; line-height: 1.4;">
                                             {{ post.title }}
                                         </a>
-                                        {% if post.summary %}
-                                        <p class="text-secondary"
-                                            style="margin: 8px 0 0 0; color: #4b5563; font-size: 13px; line-height: 1.5; white-space: pre-line; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
-                                            {{ post.summary|truncate(280) }}
+                                        <p class="text-tertiary"
+                                            style="margin: 4px 0 0 0; color: #6b7280; font-size: 12px;">
+                                            <span class="tag-bg link-orange"
+                                                style="display: inline-block; background: #fff7ed; padding: 2px 8px; border-radius: 4px; color: #ea580c; border: 1px solid #fed7aa;">
+                                                {{ post.source }}
+                                            </span>
                                         </p>
-                                        {% endif %}
                                     </td>
                                 </tr>
                                 {% endfor %}
