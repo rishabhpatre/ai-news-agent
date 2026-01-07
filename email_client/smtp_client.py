@@ -122,7 +122,8 @@ class SMTPClient:
         message = MIMEMultipart('alternative')
         message['Subject'] = subject
         message['From'] = self.email
-        message['To'] = to_header
+        message['To'] = self.email  # Sender in 'To' field for privacy
+        message['Bcc'] = to_header  # Real recipients in Bcc
         
         # Plain text fallback
         plain_text = self._create_plain_text(papers, news_api, rss_news, reddit_posts, videos, tools, discussions, hf_news)
@@ -135,7 +136,9 @@ class SMTPClient:
             print(f"\n{'='*60}")
             print(f"DRY RUN - Email Preview")
             print(f"{'='*60}")
-            print(f"To: {to_header}")
+            print(f"From: {self.email}")
+            print(f"To: {self.email}")
+            print(f"Bcc: {to_header}")
             print(f"Subject: {subject}")
             print(f"{'='*60}")
             print(plain_text)
