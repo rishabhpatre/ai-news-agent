@@ -26,6 +26,7 @@ from sources.rss_source import RSSSource
 from sources.hackernews_source import HackerNewsSource
 from processing.deduplicator import Deduplicator
 from processing.summarizer import Summarizer
+from processing.history_manager import HistoryManager
 from email_client.smtp_client import SMTPClient
 
 
@@ -38,7 +39,7 @@ class AINewsAgent:
         self.arxiv_source = ArxivSource(
             categories=settings.arxiv_categories,
             keywords=settings.ai_topics[:10],
-            max_results=settings.max_papers * 3,  # Fetch more, filter later
+            max_results=settings.max_papers * 3,
         )
         
         self.newsapi_source = NewsAPISource(
@@ -59,6 +60,7 @@ class AINewsAgent:
         
         # Initialize processing
         self.deduplicator = Deduplicator(similarity_threshold=75)
+        self.history_manager = HistoryManager()
         self.summarizer = Summarizer(
             openai_api_key=settings.openai_api_key,
             gemini_api_key=settings.gemini_api_key,
@@ -191,65 +193,57 @@ class AINewsAgent:
         """
         print("\n🔧 Processing content...")
         
+        # Helper for filtering history + deduplicating
+        def filter_and_dedupe(items, limit=None):
+            initial_count = len(items)
+            
+            # Apply history penalty
+            for item in items:
+                if self.history_manager.is_sent(item.url):
+                    item.score -= 5.0
+                    # item.title = f"[SEEN] {item.title}" # Optional: visual debug
+            
+            # Then deduplicate
+            items = self.deduplicator.deduplicate_all(items)
+            final_count = len(items)
+            
+            if limit:
+                items = items[:limit]
+            
+            print(f"    {initial_count} → {final_count} (unique)")
+            return items
+
         # Deduplicate papers
-        print("  • Deduplicating papers...")
-        papers = self.deduplicator.deduplicate_all(content['papers'])
-        papers = papers[:settings.max_papers]
-        print(f"    {len(content['papers'])} → {len(papers)}")
+        print("  • Processing papers...")
+        papers = filter_and_dedupe(content['papers'], settings.max_papers)
         
         # Deduplicate NewsAPI
-        print("  • Deduplicating headlines...")
-        news_api = self.deduplicator.deduplicate_all(content['news_api'])
-        news_api = news_api[:settings.max_news]
-        print(f"    {len(content['news_api'])} → {len(news_api)}")
+        print("  • Processing headlines...")
+        news_api = filter_and_dedupe(content['news_api'], settings.max_news)
 
         # Deduplicate RSS
-        print("  • Deduplicating RSS feeds...")
-        rss_news = self.deduplicator.deduplicate_all(content['rss_news'])
-        rss_news = rss_news[:settings.max_news]
-        print(f"    {len(content['rss_news'])} → {len(rss_news)}")
+        print("  • Processing RSS feeds...")
+        rss_news = filter_and_dedupe(content['rss_news'], settings.max_news)
         
         # Deduplicate Reddit
-        print("  • Deduplicating Reddit...")
-        reddit_posts = self.deduplicator.deduplicate_all(content['reddit_posts'])
-        reddit_posts = reddit_posts[:10] # Increased to 10 for 5+5 layout
-        print(f"    {len(content['reddit_posts'])} → {len(reddit_posts)}")
+        print("  • Processing Reddit...")
+        reddit_posts = filter_and_dedupe(content['reddit_posts'], 10)
 
         # Deduplicate Videos
-        print("  • Deduplicating Videos...")
-        videos = self.deduplicator.deduplicate_all(content['videos'])
-        videos = videos[:10] 
-        print(f"    {len(content['videos'])} → {len(videos)}")
+        print("  • Processing Videos...")
+        videos = filter_and_dedupe(content['videos'], 10)
         
         # Deduplicate Tools
-        print("  • Deduplicating Tools...")
-        tools = self.deduplicator.deduplicate_all(content['tools'])
-        tools = tools[:10] # Increased to 10 for 5+5 layout
-        print(f"    {len(content['tools'])} → {len(tools)}")
+        print("  • Processing Tools...")
+        tools = filter_and_dedupe(content['tools'], 10)
         
         # Deduplicate discussions
-        print("  • Deduplicating discussions...")
-        discussions = self.deduplicator.deduplicate_all(content['discussions'])
-        discussions = discussions[:settings.max_discussions]
-        print(f"    {len(content['discussions'])} → {len(discussions)}")
+        print("  • Processing discussions...")
+        discussions = filter_and_dedupe(content['discussions'], settings.max_discussions)
 
         # Deduplicate Hugging Face
-        print("  • Deduplicating Hugging Face...")
-        hf_news = self.deduplicator.deduplicate_all(content['hf_news'])
-        hf_news = hf_news[:settings.max_news]
-        print(f"    {len(content['hf_news'])} → {len(hf_news)}")
-        
-        # Generate summaries if LLM is available (DISABLED - Bottleneck)
-        # if self.summarizer.has_llm:
-        #     print("  • Generating AI summaries...")
-        #     papers = self.summarizer.summarize_batch(papers)
-        #     news_api = self.summarizer.summarize_batch(news_api)
-        #     rss_news = self.summarizer.summarize_batch(rss_news)
-        #     hf_news = self.summarizer.summarize_batch(hf_news)
-        #     reddit_posts = self.summarizer.summarize_batch(reddit_posts)
-        #     videos = self.summarizer.summarize_batch(videos)
-        #     discussions = self.summarizer.summarize_batch(discussions)
-        #     tools = self.summarizer.summarize_batch(tools)
+        print("  • Processing Hugging Face...")
+        hf_news = filter_and_dedupe(content['hf_news'], settings.max_news)
         
         return {
             'papers': papers,
@@ -281,7 +275,6 @@ class AINewsAgent:
         print(f"\n📧 {'Previewing' if dry_run else 'Sending'} digest with {total} items...")
         
         # Define readable labels
-        # Define readable labels
         label_text = f"Past {max(3, days_back)} days"
         lookback_labels = {
             'papers': label_text,
@@ -289,12 +282,12 @@ class AINewsAgent:
             'default': label_text,
         }
 
-        return self.email_client.send_digest(
+        success = self.email_client.send_digest(
             to_email=settings.recipient_email,
             papers=content['papers'],
             news_api=content['news_api'],
             rss_news=content['rss_news'],
-            hf_news=content['hf_news'], # Added hf_news
+            hf_news=content['hf_news'], 
             reddit_posts=content['reddit_posts'],
             videos=content['videos'],
             tools=content['tools'],
@@ -302,6 +295,18 @@ class AINewsAgent:
             lookback_labels=lookback_labels,
             dry_run=dry_run,
         )
+        
+        if success and not dry_run:
+            # Update history only on successful send (not dry run)
+            print("📚 Updating history...")
+            all_articles = []
+            for items in content.values():
+                all_articles.extend(items)
+            
+            self.history_manager.add_articles(all_articles)
+            self.history_manager.cleanup(days_to_keep=30)
+            
+        return success
     
     def run(self, dry_run: bool = False, days_back: int = 1) -> bool:
         """
@@ -331,6 +336,12 @@ class AINewsAgent:
             # Process
             processed = self.process_content(content)
             
+            # Check if we have processed content (after filtering)
+            total_processed = sum(len(v) for v in processed.values())
+            if total_processed == 0:
+                print("\n⚠️  No new content found after history filtering.")
+                return False
+
             # Send
             success = self.send_digest(processed, dry_run=dry_run, days_back=days_back)
             

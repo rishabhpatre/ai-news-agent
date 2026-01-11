@@ -140,8 +140,6 @@ class ArxivSource:
             if kw in text:
                 score += 1.0
         
-        return score
-        
         # Time Decay
         if hasattr(result, 'published'):
             age = datetime.now() - result.published.replace(tzinfo=None)

@@ -132,8 +132,9 @@ class NewsAPISource:
         source_name = item.get('source', {}).get('name', '')
         if 'pypi.org' in source_name.lower():
             score -= 10.0
-        
-        return score
+            
+        if 'github.com' in source_name.lower() or 'github.com' in item.get('url', '').lower():
+            score -= 10.0
         
         # Time Decay
         if published:

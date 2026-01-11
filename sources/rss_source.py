@@ -218,8 +218,6 @@ class RSSSource:
             if term in text:
                 score += 1.0
         
-        return score
-        
         # Time Decay: -1.5 points per day old
         if published:
             age = datetime.now() - published
