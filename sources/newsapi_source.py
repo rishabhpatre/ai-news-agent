@@ -37,10 +37,10 @@ class NewsAPISource:
         
         # Queries tailored for AI news
         queries = [
-            '"artificial intelligence"',
+            '"artificial intelligence" NOT horoscope NOT zodiac NOT football NOT sport',
             '"large language model" OR "LLM"',
-            '"AI agent" OR "agentic AI"',
-            'ChatGPT OR GPT-4 OR Claude OR Gemini',
+            '"AI agent" OR "agentic AI" NOT football',
+            '(ChatGPT OR GPT-4 OR Claude OR Gemini) AND (AI OR "large language model" OR Google OR OpenAI OR Anthropic) NOT horoscope NOT zodiac',
         ]
         
         seen_urls = set()
