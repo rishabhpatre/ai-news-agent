@@ -131,10 +131,9 @@ class Settings:
     rss_feeds: List[dict] = field(default_factory=lambda: [
         {'name': 'MIT Tech Review AI', 'url': 'https://www.technologyreview.com/topic/artificial-intelligence/feed'},
         {'name': 'OpenAI Blog', 'url': 'https://openai.com/blog/rss.xml'},
+        {'name': 'Google AI Blog', 'url': 'https://blog.google/innovation-and-ai/technology/ai/rss/'},
         {'name': 'Anthropic Research', 'url': 'https://raw.githubusercontent.com/Olshansk/rss-feeds/main/feeds/feed_anthropic_research.xml'},
         {'name': 'Google DeepMind', 'url': 'https://deepmind.com/blog/feed/basic/'},
-        {'name': 'NVIDIA Developer', 'url': 'https://developer.nvidia.com/blog/feed/'},
-        {'name': 'AWS Machine Learning', 'url': 'http://feeds.feedburner.com/amazon/AWSAI'},
         {'name': 'Berkeley AI Research', 'url': 'https://bair.berkeley.edu/blog/feed.xml'},
         {'name': 'Microsoft Research', 'url': 'https://www.microsoft.com/en-us/research/feed/'},
         {'name': 'Wired AI', 'url': 'https://www.wired.com/feed/tag/ai/latest/rss'},
